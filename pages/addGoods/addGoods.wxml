@@ -1,0 +1,29 @@
+<!--/addGoods/addGoods.wxml-->
+<!-- <navigation title="添加商品" /> -->
+
+<view class="container">
+	<input placeholder='商品名称:' focus="true" bindinput="onInputGoodsName" value="{{goods.text}}" />
+	<input placeholder='商品原价:' bindinput="onInputOldPrice" type="digit" value="{{goods.oldPrice}}" />
+	<input placeholder='商品价格:' bindinput="onInputPrice" type="digit" value="{{goods.unitPrice}}" />
+	<input placeholder='商品库存:' bindinput="onInputStockNum" type="digit" value="{{goods.stockNum}}" />
+
+	<view class="goodsClassify">
+		<button bindtap="showModal" disabled="{{goods}}">选择商品种类</button>
+		<text>{{selectedClassify}}</text>
+	</view>
+	<view class="modal" hidden="{{!showModal}}">
+		<block wx:for="{{goodsClassifies}}" wx:key="key">
+			<view>
+				<text bindtap="hideModal" data-item="{{item}}">{{item.text}}</text>
+			</view>
+		</block>
+	</view>
+
+	<view class="goodsImg">
+		<button bindtap="chooseImage">添加商品图片</button>
+		<image src="{{imagePath}}" bindtap="preView" hidden="{{!imagePath}}" mode="aspectFill" />
+	</view>
+
+	<button class="save" bindtap="save">{{goods ? '更新' : '添加'}}</button>
+	<button class="delete" bindtap="delete" hidden="{{!goods}}">删除</button>
+</view>

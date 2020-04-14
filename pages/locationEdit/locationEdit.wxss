@@ -1,0 +1,27 @@
+/* pages/locationEdit/locationEdit.wxss */
+
+text {
+  font-weight: 500;
+}
+
+page {
+  display: block;
+  min-height: 100%;
+}
+
+.content {
+  margin: 20rpx;
+  margin-top: 50rpx;
+}
+
+.inputLocation{
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.saveLocation{
+  margin-top: 100rpx;
+  background: rgba(255, 193, 7, 255);
+  border-radius: 45rpx;
+  color: white;
+  font-size: 36rpx;
+}

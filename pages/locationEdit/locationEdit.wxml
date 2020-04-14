@@ -1,0 +1,5 @@
+<!--pages/locationEdit/locationEdit.wxml-->
+<view class="content">
+  <input class="inputLocation" value="{{hasDefaultLocation ? placeHolder : ''}}" placeholder="{{!hasDefaultLocation ? placeHolder : ''}}" focus="true" bindinput="onInputContent" />
+  <button class="saveLocation" bindtap="onSaveLocation">保存</button>
+</view>   

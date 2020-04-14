@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "navigation":"../../components/navigation"
+  },
+  "navigationBarTitleText": "添加商品"
+}

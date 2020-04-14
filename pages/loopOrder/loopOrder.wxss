@@ -1,0 +1,108 @@
+/* pages/loopOrder/loopOrder.wxss */
+page {
+  background: rgb(245, 245, 245);
+}
+
+.cardContent {
+  border-radius: 10rpx;
+  background: white;
+  margin: 20rpx;
+  padding: 20rpx;
+}
+
+.completed {
+  background: rgb(218, 218, 218);
+}
+
+.completed text {
+  color: gray;
+}
+
+/* orderDetail */
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatarUrl {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 90rpx;
+}
+
+.nickName {
+  color: grey;
+  font-size: 26rpx;
+  margin-left: 30rpx;
+}
+
+.phoneNumber {
+  color: grey;
+  font-size: 26rpx;
+  margin-left: 40rpx;
+}
+
+.otherInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.otherInfo text {
+  color: grey;
+  font-size: 26rpx;
+  margin-left: 90rpx;
+  margin-top: 10rpx;
+}
+
+.divider {
+  height: 0.5rpx;
+  margin-top: 30rpx;
+  width: 100%;
+  background: rgb(214, 214, 214);
+}
+
+.goodsImg {
+  height: 48rpx;
+  width: 64rpx;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30rpx;
+}
+
+.listItem text {
+  color: gray;
+  font-size: 30rpx;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30rpx;
+  align-items: center;
+}
+
+.bottom text {
+  color: gray;
+  font-size: 30rpx;
+}
+
+.bottom .totalMoney {
+  margin-right: 0rpx;
+  color: rgb(255, 193, 7);
+}
+
+.bottom button {
+  margin-right: 0rpx;
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 28rpx;
+  color: white;
+  background: rgb(255, 193, 7);
+}

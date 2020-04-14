@@ -1,0 +1,202 @@
+/* order.wxss */
+
+page {
+  background-color: rgb(245, 245, 245);
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* location */
+
+.cardContent {
+  border-radius: 10rpx;
+  background: white;
+  margin: 20rpx;
+  padding: 20rpx;
+}
+
+.location {
+  padding-right: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imgLocation {
+  width: 48rpx;
+  height: 48rpx;
+  background: rgba(255, 193, 7, 255);
+  border-radius: 180rpx;
+  padding: 15rpx;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.locationInfo2 {
+  margin-left: 20rpx;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userInfo .name {
+  font-size: 30rpx;
+}
+
+.userInfo .phone {
+  color: gray;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+}
+
+.defaultText {
+  color: rgb(100, 99, 99);
+  font-size: 28rpx;
+}
+
+.locationArrow {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* orderDetail */
+
+.storeInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.storeImg {
+  height: 48rpx;
+  width: 48rpx;
+  border-radius: 90rpx;
+}
+
+.storeName {
+  color: grey;
+  font-size: 24rpx;
+  margin-left: 25rpx;
+}
+
+.goodsImg {
+  height: 48rpx;
+  width: 64rpx;
+}
+
+.listText {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 25rpx;
+}
+
+.goodsTitle {
+  color: gray;
+  font-size: 28rpx;
+  max-width: 300rpx;
+  max-lines: 1;
+}
+
+.goodsSum {
+  color: gray;
+  font-size: 28rpx;
+}
+
+.goodsUnitPrice {
+  color: rgb(255, 193, 7);
+}
+
+/* time and comment */
+.deliveryTime {
+  display: flex;
+  flex-direction: raw;
+  justify-content: space-between;
+}
+
+.comment {
+  display: flex;
+  flex-direction: raw;
+  justify-content: space-between;
+  margin-top: 35rpx;
+}
+
+.comment input {
+  width: 70%;
+  text-align: right;
+  color: rgb(80, 80, 80);
+}
+
+.timeText {
+  font-size: 28rpx;
+}
+
+/* bottomLayout */
+
+.bottomLayout {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding-top: 25rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.totalSum {
+  color: gray;
+  font-size: 28rpx;
+}
+
+.totalMoney {
+  color: rgb(255, 193, 7);
+}
+
+.commitOrder {
+  border-radius: 90rpx;
+  background: rgb(255, 193, 7);
+  color: white;
+  padding-left: 25rpx;
+  padding-right: 28rpx;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+  font-size: 32rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+}
+
+.committedOrder {
+  border-radius: 90rpx;
+  background: rgb(201, 201, 201);
+  color: white;
+  padding-left: 25rpx;
+  padding-right: 28rpx;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+  font-size: 32rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: transparent;
+}

@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/loopOrder/loopOrder",
+    "pages/orderDetail/order",
+    "pages/backendHome/backendHome",
+    "pages/addGoods/addGoods",
+    "pages/goodsClassify/goodsClassify",
+    "pages/locationEdit/locationEdit"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFC107",
+    "navigationBarTitleText": "果味缘（中海国际店）",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+<!--index.wxml-->
+<image class="emptyHolder" src="../image/emptyData.png" hidden="{{!showEmptyImage}}" />
+
+<view class='container'>
+	<!-- <navigation title="果味缘（中海国际店）" show_bol="false" /> -->
+	<view class='main'>
+		<!-- leftClassify -->
+		<view class='left'>
+			<scroll-view style="height:100%" scroll-y="true" scroll-into-view="true" scroll-with-animation="true">
+				<block wx:for="{{goodsClassifies}}" wx:for-list="item" wx:key="key">
+					<view class="{{classifySelect == item.id?'active':''}}" data-id='{{item.id}}' bindtap='left_list'>
+						<text style="line-height:80rpx">{{item.text}}</text>
+					</view>
+				</block>
+			</scroll-view>
+		</view>
+
+		<!-- rightContent -->
+		<view class='right'>
+			<scroll-view scroll-y="true" style="height: 100%" bindscroll="scroll" scroll-top="{{scrollTop}}" scroll-into-view="{{'inToview'+rigId}}">
+				<block wx:for="{{goodsListData}}" wx:for-list="item" wx:key="key">
+
+					<view class='itemTitle' id="{{'inToview'+item.id}}">{{item.text}}</view>
+
+					<block wx:for="{{item.content}}" wx:key="key">
+						<view class='listItem {{item.stockNum == 0 ? "stockClear" : ""}}' data-text="{{}}">
+							<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
+
+							<view class='listText'>
+								<text>{{item.text}}</text>
+								<text class='oldPrice'>¥{{item.oldPrice}}</text>
+								<view class="view">
+									<text class='unitPrice'>¥{{item.unitPrice}}</text>
+									<text class='stockNum' hidden="{{item.stockNum == null || item.stockNum > 5}}">库存：{{item.stockNum}}</text>
+									<image src='{{item.stockNum!=0 ? "../image/add.png" : "../image/not_add.png"}}' bindtap="addToShopCar" data-item="{{item}}" mode="aspectFill"></image>
+								</view>
+							</view>
+						</view>
+					</block>
+
+				</block>
+			</scroll-view>
+		</view>
+
+		<!-- menu for backend deploy -->
+		<view class="menu-cancel" bindtap="hideMenu" hidden="{{!canShowDeployMenus}}" />
+		<view class="menu addMenu" bindtap="addGoods" hidden="{{!canShowDeployMenus}}">
+			<image src="../image/addGoods.png" mode="aspectFill"></image>
+		</view>
+		<view class="menu orderMenu" bindtap="loopOrder" hidden="{{!canShowDeployMenus}}">
+			<image src="../image/order.png" mode="aspectFill"></image>
+		</view>
+		<view class="menu deployMenu" bindtap="showMenu" hidden="{{!showDeployMenu}}">
+			<image src="../image/menu.png" mode="aspectFill"></image>
+		</view>
+
+		<!-- shopCar -->
+		<view class="shopCar" bindtap="showModal">
+			<image src="../image/shopCar.png" mode="aspectFill"></image>
+			<text hidden="{{!cartsSum}}">{{cartsSum}}</text>
+		</view>
+
+		<!-- modalDialog -->
+		<view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
+			<view class="modals-cancel" bindtap="hideModal"></view>
+
+			<view class="bottom-dialog-body bottom-pos" animation="{{animationData}}">
+
+				<view class="dialogHead">
+					<text>当前已选择件{{cartsSum}}商品</text>
+					<text bindtap="clearShopCar">清空</text>
+				</view>
+
+				<scroll-view scroll-y="true" style="height: 70%">
+					<block wx:for="{{carts}}" wx:key="key">
+						<view class='listItem shopCarItem'>
+							<image class='goodsImg shopCarGoodsImg' src='{{item.url}}' mode="aspectFill"></image>
+
+							<view class='listText'>
+								<text>{{item.text}}</text>
+								<view class="view">
+									<text class='unitPrice'>¥{{item.unitPrice}}</text>
+									<text class='sum'>x{{item.sum}}</text>
+									<image src='../image/remove.png' bindtap="removeFromShopCar" data-item="{{item}}" mode="aspectFill"></image>
+								</view>
+							</view>
+						</view>
+					</block>
+
+					<view class="shopCarEmptyImg" hidden="{{cartsSum}}">
+						<image src="../image/empty.png" />
+						<text>购物车里面都没有...</text>
+					</view>
+				</scroll-view>
+
+				<button class="buy" wx:if='{{!hasNickName}}' open-type="getUserInfo" bindgetuserinfo="getUserInfo" disabled="{{!cartsSum}}"> 去结算</button>
+				<button class="buy" wx:if='{{hasNickName}}' open-type="{{!hasPhoneNumber ? 'getPhoneNumber' : ''}}" bindgetphonenumber="getPhoneNumber" bindtap="{{hasPhoneNumber ? 'jumpToOrderPage' : ''}}" disabled="{{!cartsSum}}"> 去结算 </button>
+
+			</view>
+		</view>
+	</view>
+
+</view>

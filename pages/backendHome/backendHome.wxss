@@ -1,0 +1,52 @@
+/* pages/bakendHome/backendHome.wxss */
+.title {
+  margin-left: 35rpx;
+  font-size: 32rpx;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 35rpx;
+}
+
+.listItem image {
+  width: 120rpx;
+  height: 90rpx;
+  border-radius: 8rpx;
+}
+
+.divider {
+  width: 100%;
+  height: 0.2rpx;
+  background: rgb(231, 230, 230);
+}
+
+/* menu for backend deploy */
+.menu {
+  position: fixed;
+  width: 93rpx;
+  height: 93rpx;
+  left: 30rpx;
+  display: flex;
+  border-radius: 10rpx;
+  align-items: center;
+  justify-content: center;
+  background: rgb(71, 71, 71);
+  box-shadow: 0px 2px 2px 2px rgb(204, 204, 204);
+}
+
+.menu text {
+  color: white;
+  font-size: 26rpx;
+}
+
+.addGoods {
+  bottom: 150rpx;
+}
+
+.addClassify {
+  bottom: 30rpx;
+}

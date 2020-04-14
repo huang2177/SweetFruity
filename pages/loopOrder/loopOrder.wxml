@@ -1,0 +1,34 @@
+<!--pages/loopOrder/loopOrder.wxml-->
+<image class="emptyHolder" src="../image/emptyData.png" hidden="{{orderInfo.length != 0}}" />
+
+<block wx:for="{{orderInfo}}" wx:key="key">
+	<view class="cardContent {{item.isCompleted ? 'completed' : ''}}">
+		<view class="userInfo" bindtap="{{item.isCompleted ? '' : 'call'}}" data-phone="{{item.userInfo.phoneNumber}}">
+			<image class='avatarUrl' src='{{item.userInfo.avatarUrl}}' mode="aspectFill" />
+			<text class="nickName">{{item.userInfo.nickName}}</text>
+			<text class="phoneNumber">{{item.userInfo.phoneNumber}}</text>
+		</view>
+		<view class="otherInfo">
+			<text bindtap="{{item.isCompleted ? '' : 'call'}}" data-phone="{{item.userInfo.phoneNumber}}">{{item.userInfo.location}}</text>
+			<text>配送时间：{{item.deliveryTime}}</text>
+			<text hidden="{{!item.comments}}">留言备注：{{item.comments}}</text>
+		</view>
+
+		<view class="divider" />
+
+		<block wx:for="{{item.orders}}" wx:key="key">
+			<view class='listItem'>
+				<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
+				<text class="goodsTitle">{{item.text}}</text>
+				<text class="goodsSum">x{{item.sum}}</text>
+				<text class='goodsUnitPrice'>¥{{item.unitPrice}}</text>
+			</view>
+		</block>
+
+		<view class="bottom">
+			<text>合计：</text>
+			<text class="{{item.isCompleted ? '' : 'totalMoney'}}">{{item.totalMoney}}</text>
+			<button disabled="{{item.isCompleted}}" bindtap="complete" data-order="{{item}}">完成</button>
+		</view>
+	</view>
+</block>

@@ -1,0 +1,99 @@
+/* miniprogram/pages/addGoods/addGoods.wxss */
+
+.container {
+  margin-left: 35rpx;
+  margin-right: 35rpx;
+  margin-bottom: 100rpx;
+}
+
+input {
+  height: 50rpx;
+  margin-top: 60rpx;
+  padding-bottom: 15rpx;
+  font-size: 30rpx;
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+button {
+  height: 75rpx;
+  font-size: 30rpx;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  background: rgb(175, 175, 175);
+  color: rgb(255, 255, 255);
+  margin-left: 0rpx;
+  margin-right: 0rpx;
+  line-height: 75rpx;
+}
+
+.goodsClassify {
+  display: flex;
+  flex-direction: row;
+  margin-top: 90rpx;
+  align-items: center;
+}
+
+.goodsClassify text {
+  margin-left: 80rpx;
+  font-size: 30rpx;
+}
+
+.goodsClassify button {
+  width: 220rpx;
+}
+
+.modal {
+  width: 220rpx;
+  z-index: 1002;
+  left: 300rpx;
+  margin-top: 540rpx;
+  border-radius: 10rpx;
+  background: rgb(75, 74, 74);
+  position: fixed;
+  box-shadow: 0px 2px 5px 5px rgb(204, 204, 204);
+}
+
+.modal view {
+  display: flex;
+  align-items: center;
+}
+
+.modal text {
+  width: 220rpx;
+  height: 75rpx;
+  color: #fff;
+  line-height: 75rpx;
+  text-align: center;
+  margin-right: 0rpx;
+}
+
+.goodsImg {
+  display: flex;
+  flex-direction: row;
+  margin-top: 90rpx;
+}
+
+.goodsImg image {
+  width: 300rpx;
+  height: 250rpx;
+  margin-left: 80rpx;
+  border-radius: 10rpx;
+}
+
+.goodsImg button {
+  width: 220rpx;
+}
+
+.save {
+  height: 80rpx;
+  margin-top: 100rpx;
+  line-height: 80rpx;
+}
+
+.delete {
+  color: #123;
+  height: 80rpx;
+  margin-top: 40rpx;
+  line-height: 80rpx;
+  background: white;
+}

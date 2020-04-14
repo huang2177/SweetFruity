@@ -1,0 +1,22 @@
+<!--pages/bakendHome/backendHome.wxml-->
+<image class="emptyHolder" src="../image/emptyData.png" hidden="{{goodsListData.length != 0}}" />
+
+<block wx:for="{{goodsListData}}" wx:for-item="outItem" wx:key="key">
+	<text class="title">{{outItem.text}}</text>
+	<block wx:for="{{outItem.content}}" wx:key="key">
+		<view class="listItem" bindtap="deleteGoods" data-parentid="{{outItem.id}}" data-classify="{{outItem.text}}" data-item="{{item}}">
+			<image src="{{item.url}}" mode="aspectFill" />
+			<text class="goodsName">{{item.text}}</text>
+			<text class="price">{{item.oldPrice +' / '+ item.unitPrice}}</text>
+		</view>
+		<view class="divider" />
+	</block>
+</block>
+
+<!-- menus -->
+<view class="menu addClassify" bindtap="navigate" data-pageUrl="../goodsClassify/goodsClassify">
+	<text>添加\n分类</text>
+</view>
+<view class="menu addGoods" bindtap="navigate" data-pageUrl="../addGoods/addGoods">
+	<text>添加\n商品</text>
+</view>

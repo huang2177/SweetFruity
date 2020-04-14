@@ -1,0 +1,65 @@
+<!-- order.wxml -->
+<view class="content">
+
+	<scroll-view scroll-y="true" style="height:90%">
+
+		<!-- locationInfo -->
+		<view class="location cardContent" bindtap="updateLocation">
+			<view class="locationInfo">
+				<image class="imgLocation" src="./image/location.png" />
+
+				<view class="locationInfo2">
+					<view class="userInfo">
+						<text class="name">{{nickName}}</text>
+						<text class="phone">{{phoneNumber}}</text>
+					</view>
+
+					<text class="defaultText">{{location}}</text>
+				</view>
+			</view>
+
+			<image class="locationArrow" src="./image/arrow.png" />
+		</view>
+
+		<!-- orderDetail -->
+		<view class="orderDetail cardContent">
+			<view class="storeInfo">
+				<image class='storeImg' src='./image/logo.jpeg' mode="aspectFill"></image>
+				<text class="storeName">果味缘（中海国际店）</text>
+			</view>
+
+			<block wx:for="{{goodsList}}" wx:key="key">
+				<view class='listText'>
+					<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
+					<text class="goodsTitle">{{item.text}}</text>
+					<text class="goodsSum">x{{item.sum}}</text>
+					<text class='goodsUnitPrice'>¥{{item.unitPrice}}</text>
+				</view>
+			</block>
+		</view>
+
+		<view class="cardContent">
+			<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+				<view class="deliveryTime">
+					<text class="defaultText">配送时间</text>
+					<text class="timeText">{{deliveryTime}} ></text>
+				</view>
+			</picker>
+
+			<view class="comment">
+				<text class="defaultText">备注留言</text>
+				<input class="timeText" placeholder="可备注洗切服务、无接触收货" bindinput="onCommentInput" />
+			</view>
+		</view>
+
+	</scroll-view>
+
+
+
+	<!-- bottomLayout -->
+	<view class="bottomLayout">
+		<text class="totalSum">共{{totalSum}}件， 合计：</text>
+		<text class="totalMoney">¥ {{totalMoney}}</text>
+		<text class="{{isPaySuccess ? 'committedOrder' : 'commitOrder'}}" bindtap="{{isPaySuccess ? '' : 'commitOrder'}}">提交订单</text>
+	</view>
+</view>
