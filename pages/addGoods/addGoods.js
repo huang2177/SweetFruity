@@ -23,10 +23,11 @@ Page({
     that.getData()
   },
 
-  getData: function () {
+  getData: function (fun) {
     var that = this
     db.collection("goodsClassifies").get({
       success: function (res) {
+        if (fun) fun(res.data)
         that.setData({
           goodsClassifies: res.data
         })
@@ -167,23 +168,24 @@ Page({
   },
 
   showModal: function () {
-    this.getData()
-    if (this.data.goodsClassifies.length == 0) {
-      wx.showModal({
-        title: '提示',
-        content: '还未添加商品分类，是否添加？',
-        success: function (res) {
-          if (!res.cancel) {
-            wx.navigateTo({
-              url: '../goodsClassify/goodsClassify'
-            })
+    this.getData(classifies => {
+      if (!classifies || classifies.length == 0) {
+        wx.showModal({
+          title: '提示',
+          content: '还未添加商品分类，是否添加？',
+          success: function (res) {
+            if (!res.cancel) {
+              wx.navigateTo({
+                url: '../goodsClassify/goodsClassify'
+              })
+            }
           }
-        }
+        })
+        return
+      }
+      this.setData({
+        showModal: true,
       })
-      return
-    }
-    this.setData({
-      showModal: true,
     })
   },
 

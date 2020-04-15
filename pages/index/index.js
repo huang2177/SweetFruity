@@ -125,9 +125,6 @@ Page({
   addToShopCar: function (e) {
     var that = this
     const item = e.target.dataset.item
-    if (item['stockNum'] <= 0) {
-      return
-    }
     that.getItemGoods(item.goodsId).then(goods => {
       that.addShopCar(goods)
     }).catch(err => {
@@ -136,17 +133,23 @@ Page({
   },
 
   addShopCar(goods) {
+    if (goods.stockNum <= 0) {
+      return
+    }
+    if (!goods.stockNum) {
+      goods.stockNum = 100
+    }
     var that = this
     var index = -1;
     var carts = that.data.carts;
+
     for (var i = 0; i < carts.length; i++) {
       index = carts[i]['goodsId'] == goods.goodsId ? i : index
     }
-
-    if (index == -1 && goods.stockNum > 0 || goods.stockNum != 0) {
+    if (index == -1) {
       goods.sum = 1
       carts.push(goods)
-    } else if ((index >= 0 && !that.overStock(carts[index])) || goods.stockNum != 0) {
+    } else if ((index >= 0 && !that.overStock(carts[index]))) {
       carts[index].sum++;
     }
     that.setData({
