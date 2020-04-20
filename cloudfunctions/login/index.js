@@ -1,10 +1,22 @@
 const cloud = require('wx-server-sdk')
-
-cloud.init({
-  traceUser: true,
-  env: 'dev-3i7nf',
-})
+cloud.init()
 
 exports.main = (event, context) => {
-  return event.baseData.data.phoneNumber
+  const wxContext = cloud.getWXContext()
+  const action = event.action
+  var data = {}
+  switch (action) {
+    case 'openId':
+      data = {
+        openId: wxContext.OPENID,
+      }
+      break;
+    case 'phoneNumber':
+      data = {
+        event,
+        openId: wxContext.OPENID,
+      }
+      break;
+  }
+  return data
 }

@@ -6,13 +6,40 @@
     "pages/backendHome/backendHome",
     "pages/addGoods/addGoods",
     "pages/goodsClassify/goodsClassify",
-    "pages/locationEdit/locationEdit"
+    "pages/locationEdit/locationEdit",
+    "pages/shopCar/shopCar",
+    "pages/personInfo/personInfo",
+    "pages/userOrder/userOrder"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#FFC107",
+    "navigationBarBackgroundColor": "#FFB310",
     "navigationBarTitleText": "果味缘（中海国际店）",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#FFB310",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./pages/image/nav_home.png",
+        "selectedIconPath": "./pages/image/nav_home1.png"
+      },
+      {
+        "pagePath": "pages/shopCar/shopCar",
+        "text": "购物车",
+        "iconPath": "./pages/image/nav_shop_car.png",
+        "selectedIconPath": "./pages/image/nav_shop_car1.png"
+      },
+      {
+        "pagePath": "pages/personInfo/personInfo",
+        "text": "我的",
+        "iconPath": "./pages/image/nav_person.png",
+        "selectedIconPath": "./pages/image/nav_person1.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json",
   "permission": {

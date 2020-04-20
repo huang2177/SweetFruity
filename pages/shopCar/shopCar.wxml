@@ -1,0 +1,51 @@
+<!--pages/shopCar/shopCar.wxml-->
+<view class="shopCarEmpty" hidden="{{carts.length != 0}}">
+	<image src="../image/emptyData.png" />
+	<view class="prompt">
+		<text>购物车里面都没有，赶紧</text>
+		<text class="navToBuy" bindtap="navigateToHome">去选购</text>
+		<text>吧</text>
+	</view>
+</view>
+
+<!-- content -->
+<view class="content" hidden="{{carts.length == 0}}">
+	<block wx:for="{{carts}}" wx:key="key">
+		<view class='listItem'>
+			<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
+			<view class='listText'>
+				<text>{{item.text}}</text>
+				<view class="view">
+					<text class='unitPrice'>¥{{item.unitPrice}}</text>
+					<text class='sum'>x{{item.sum}}</text>
+					<image src='../image/remove.png' bindtap="removeFromShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill"></image>
+				</view>
+			</view>
+		</view>
+	</block>
+</view>
+
+<!-- recommend -->
+<text class="recommendText">—— 猜你喜欢 ——</text>
+<view class="recommend ">
+	<block wx:for="{{dayRecommend}}" wx:key="key">
+		<view class="child">
+			<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
+			<text class="goodsName">{{item.text}}</text>
+			<view class="view">
+				<text class='unitPrice'>¥{{item.unitPrice}}</text>
+				<image src="../image/add.png" bindtap="addToShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill" />
+			</view>
+		</view>
+	</block>
+</view>
+
+<view class="placeHolder" />
+
+<!-- bootom layout -->
+<view class="commitOrder" hidden="{{carts.length == 0}}">
+	<text>应付合计：</text>
+	<text class="money">¥{{totalMoney}}</text>
+	<button wx:if='{{!nickName}}' open-type="getUserInfo" bindgetuserinfo="getUserInfo">去结算</button>
+	<button wx:if='{{nickName}}' open-type="{{!phoneNumber ? 'getPhoneNumber' : ''}}" bindgetphonenumber="getPhoneNumber" bindtap="{{phoneNumber ? 'jumpToOrderPage' : ''}}">去结算</button>
+</view>

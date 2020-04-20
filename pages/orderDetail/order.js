@@ -2,14 +2,10 @@ var count = 0
 const db = wx.cloud.database()
 const util = require('../../utils/util.js')
 const goodsDBUtil = require('../../utils/goodsDBUtil.js')
+const shopCarUtil = require('../../utils/shopCarUtil.js')
+
 Page({
   data: {
-    totalSum: 0,
-    totalMoney: 0.00,
-    nickName: "",
-    phoneNumber: "",
-    location: "",
-    goodsList: [],
     multiIndex: [0, 0, 0],
     deliveryTime: '未选择',
     multiArray: [
@@ -21,38 +17,31 @@ Page({
 
   onLoad: function (options) {
     count = 0
-    var that = this
-    var carts = wx.getStorageSync('carts')
-    var location = wx.getStorageSync("location") ? wx.getStorageSync("location") : '未填写收货地址！'
-    var totalMoney = (that.getTotalSum(carts).totalMoney).toFixed(2)
-    this.setData({
+    const that = this
+    const carts = wx.getStorageSync('carts')
+    const totalMoney = (shopCarUtil.getTotalSum(carts).totalMoney).toFixed(2)
+
+    that.setData({
       goodsList: carts,
-      location: location,
+      totalMoney: totalMoney,
       nickName: wx.getStorageSync('nickName'),
       phoneNumber: wx.getStorageSync('phoneNumber'),
-      totalSum: that.getTotalSum(carts).totalSum,
-      totalMoney: totalMoney,
+      totalSum: shopCarUtil.getTotalSum(carts).totalSum,
     })
   },
 
-  getTotalSum: function (carts) {
-    var data = {
-      totalSum: 0,
-      totalMoney: 0,
-    }
-    for (var i = 0; i < carts.length; i++) {
-      if (carts[i].sum) {
-        data.totalSum += carts[i].sum
-        data.totalMoney += carts[i].sum * carts[i].unitPrice
-      }
-    }
-    return data
+  onShow() {
+    const that = this
+    const locationS = wx.getStorageSync("location")
+    const location = locationS ? locationS : '未填写收货地址！'
+    that.setData({
+      location: location,
+    })
   },
 
   updateLocation: function () {
-    var that = this
     wx.navigateTo({
-      url: '../locationEdit/locationEdit?location=' + that.data.location
+      url: '../locationEdit/locationEdit'
     })
   },
 
@@ -94,6 +83,7 @@ Page({
         })
       },
       fail(res) {
+        console.log(res)
         wx.hideLoading()
         wx.showModal({
           title: '提示',
@@ -122,7 +112,7 @@ Page({
         that.uploadOrderInfo()
         that.showSuccessDialog()
         that.updateGoodsStockNum()
-        wx.setStorageSync('paySuccess', true)
+        shopCarUtil.clearShopCar()
       },
       fail(res) {
         wx.showModal({
@@ -139,14 +129,13 @@ Page({
     })
   },
 
-
   updateGoodsStockNum() {
     var that = this
     var goodsList = that.data.goodsList
     if (count < goodsList.length) {
       goodsDBUtil.updateGoodsStockNum(goodsList[count]['goodsId'], goodsList[count]['sum'], any => {
         count++
-        setTimeout(function() {
+        setTimeout(function () {
           that.updateGoodsStockNum()
         }, 1000)
       })
@@ -172,6 +161,7 @@ Page({
       totalMoney: (that.data.totalMoney),
       comments: that.data.comments,
       deliveryTime: deliveryTime,
+      createTime: new Date().getTime(),
     }
 
     db.collection('orderInfo')

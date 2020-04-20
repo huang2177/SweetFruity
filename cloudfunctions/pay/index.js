@@ -1,9 +1,6 @@
 //云开发实现支付
 const cloud = require('wx-server-sdk')
-cloud.init({
-  traceUser: true,
-  env: 'dev-3i7nf',
-})
+cloud.init()
 
 //1，引入支付的三方依赖
 const tenpay = require('tenpay');

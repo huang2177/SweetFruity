@@ -1,0 +1,87 @@
+/* pages/userOrder/userOrder.wxss */
+page {
+  background: rgb(245, 245, 245);
+}
+
+.desc {
+  color: gray;
+  font-size: 30rpx;
+}
+
+.cardContent {
+  border-radius: 10rpx;
+  background: white;
+  margin: 20rpx;
+  padding: 20rpx;
+}
+
+.completed {
+  background: rgb(218, 218, 218);
+}
+
+.completed text {
+  color: gray;
+}
+
+.divider {
+  height: 0.5rpx;
+  width: 100%;
+  background: rgb(192, 192, 192);
+}
+
+.goodsImg {
+  height: 48rpx;
+  width: 64rpx;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 40rpx;
+  padding-top: 30rpx;
+}
+
+.listItem text {
+  color: gray;
+  font-size: 30rpx;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 40rpx;
+}
+
+.avatarUrl {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 90rpx;
+}
+
+.userInfo text {
+  color: grey;
+  font-size: 26rpx;
+  margin-left: 30rpx;
+}
+
+
+.item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 90rpx;
+  margin-top: 20rpx;
+  justify-content: space-between;
+}
+
+.item .status {
+  color: rgb(255, 94, 0);
+  font-weight: 600;
+}
+
+.item text {
+  color: gray;
+  font-size: 30rpx;
+}

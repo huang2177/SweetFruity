@@ -4,20 +4,20 @@ Page({
 
   onLoad: function (options) {
     var that = this
-    db.collection('orderInfo')
-      .orderBy('isCompleted', 'asc')
-      .get({
-        success: function (res) {
-          that.setData({
-            orderInfo: res.data,
-          })
-        },
-        fail: function (res) {
-          wx.showToast({
-            title: '加载失败！',
-          })
-        }
+    wx.cloud.callFunction({
+      name: 'orderInfo',
+      data: {
+        action: 'GET',
+      }
+    }).then(res => {
+      that.setData({
+        orderInfo: res.result.data,
       })
+    }).catch(err => {
+      wx.showToast({
+        title: '加载失败！',
+      })
+    })
   },
 
   call: function (e) {

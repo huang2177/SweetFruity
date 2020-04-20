@@ -1,0 +1,30 @@
+<!--pages/personInfo/personInfo.wxml-->
+<image class="bgImage" src="{{bgImage}}" mode="aspectFill" />
+
+<view class="userInfo">
+	<image class='avatarUrl' src='{{avatarUrl}}' mode="aspectFill" />
+	<view>
+		<button class="nickName" open-type="getUserInfo" bindgetuserinfo="getUserInfo">{{nickName}}</button>
+		<button class="phoneNumber" open-type="{{'获取手机号码' == phoneNumber ? 'getPhoneNumber' : ''}}" bindgetphonenumber="getPhoneNumber">{{phoneNumber}}</button>
+	</view>
+</view>
+
+<block wx:for="{{items}}" wx:key="key">
+	<view class="item {{item.backendMenu ? 'itemBackend' : ''}} {{index == 3 ? 'itemBackend1' : ''}}" bindtap="onItemClick" data-pageUrl="{{item.pageUrl}}" data-index="{{index}}">
+		<view class="view1">
+			<image src='{{item.url}}' mode="aspectFill" />
+			<text data-pageUrl="{{item.pageUrl}}" data-index="{{index}}">{{item.text}}</text>
+		</view>
+
+		<view class="view2">
+			<text data-pageUrl="{{item.pageUrl}}" data-index="{{index}}">{{item.value}}</text>
+			<image src='../image/arrow.png' mode="aspectFill" />
+		</view>
+	</view>
+</block>
+
+<!-- menu for backend deploy -->
+<view class="share">
+	<image src="../image/img_share.jpg" mode="aspectFill" bindtap="shareApp" />
+	<button data-id="shareBtn" open-type="share" />
+</view>

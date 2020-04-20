@@ -1,6 +1,4 @@
 <!--/addGoods/addGoods.wxml-->
-<!-- <navigation title="添加商品" /> -->
-
 <view class="container">
 	<input placeholder='商品名称:' focus="true" bindinput="onInputGoodsName" value="{{goods.text}}" />
 	<input placeholder='商品原价:' bindinput="onInputOldPrice" type="digit" value="{{goods.oldPrice}}" />

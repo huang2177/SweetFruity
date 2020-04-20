@@ -1,0 +1,218 @@
+/* pages/shopCar/shopCar.wxss */
+page {
+  background: rgb(243, 243, 243);
+}
+
+.headBg {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 100rpx;
+  background: rgba(255, 179, 16, 1);
+}
+
+/* content */
+.content {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  padding-bottom: 35rpx;
+  margin-top: 20rpx;
+  border-radius: 10rpx;
+  background: white;
+}
+
+.listItem {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 35rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.goodsImg {
+  width: 160rpx;
+  height: 120rpx;
+  min-width: 160rpx;
+  border-radius: 10rpx;
+}
+
+.listText {
+  width: 100%;
+  display: flex;
+  margin-left: 40rpx;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.listText .view {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listText view image {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.listText text {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgb(20, 20, 20);
+}
+
+.listText .unitPrice {
+  color: rgba(255, 179, 16, 1);
+  font-size: 34rpx;
+  width: 100rpx;
+}
+
+.devider {
+  height: 1rpx;
+  width: 100%;
+  margin-top: 40rpx;
+  background: rgb(228, 228, 228);
+}
+
+.commitOrder {
+  display: flex;
+  height: 120rpx;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 40rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1rpx rgb(216, 216, 216) solid;
+  border-bottom: 1rpx rgb(216, 216, 216) solid;
+}
+
+.commitOrder text {
+  font-size: 30rpx;
+  color: rgba(66, 54, 30, 1);
+}
+
+.commitOrder .money {
+  font-size: 30rpx;
+  color: rgb(255, 102, 0);
+  font-weight: 600;
+}
+
+.commitOrder button {
+  border-radius: 90rpx;
+  background: rgb(255, 102, 0);
+  line-height: 66rpx;
+  height: 66rpx;
+  width: 160rpx;
+  text-align: center;
+  margin-right: 0rpx;
+  color: white;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+/* empty dispaly */
+.shopCarEmpty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin-top: 60rpx;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopCarEmpty image {
+  width: 140rpx;
+  height: 110rpx;
+  margin-bottom: 20rpx;
+}
+
+.prompt text {
+  color: rgb(116, 116, 116);
+  font-size: 32rpx;
+}
+
+.shopCarEmpty .navToBuy {
+  color: rgb(255, 102, 0);
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+/* recommend */
+.recommendText {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 34rpx;
+  color: rgb(255, 102, 0);
+  font-weight: 700;
+  margin-top: 80rpx;
+}
+
+.recommend {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  margin-top: 20rpx;
+}
+
+.child {
+  background-color: white;
+  flex: 0 0 44%;
+  margin-top: 4%;
+  margin-left: 3%;
+  margin-right: 3%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15rpx;
+}
+
+.child image {
+  width: 100%;
+  height: 280rpx;
+}
+
+.goodsName {
+  margin-top: 25rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  color: rgb(20, 20, 20);
+}
+
+.view {
+  margin-top: 25rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 20rpx;
+}
+
+.view .unitPrice {
+  color: rgba(255, 179, 16, 1);
+  font-size: 34rpx;
+  margin-left: 20rpx;
+}
+
+.view image {
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 20rpx;
+}
+
+.placeHolder {
+  height: 200rpx;
+}

@@ -1,0 +1,146 @@
+/* pages/personInfo/personInfo.wxss */
+page {
+  background: rgb(243, 243, 243);
+}
+
+.bgImage {
+  width: 100%;
+  height: 300rpx;
+}
+
+/* userinfo */
+.userInfo {
+  display: flex;
+  height: 140rpx;
+  flex-direction: row;
+  align-items: center;
+  margin-top: -180rpx;
+  margin-left: 30rpx;
+  margin-bottom: 70rpx;
+}
+
+.avatarUrl {
+  height: 140rpx;
+  width: 140rpx;
+  border-radius: 90rpx;
+}
+
+.userInfo button {
+  color: white;
+  font-size: 38rpx;
+  font-weight: 500;
+  background: transparent;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: left;
+}
+
+.userInfo button::after {
+  border: none;
+}
+
+/* items */
+.item {
+  height: 100rpx;
+  display: flex;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-top: 20rpx;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10rpx;
+  background: white;
+  padding-left: 15rpx;
+  padding-right: 10rpx;
+  justify-content: space-between;
+}
+
+.itemBackend {
+  background: rgb(206, 206, 206);
+}
+
+.itemBackend1 {
+  margin-top: 50rpx;
+}
+
+.item view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item .view1 image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.view1 text {
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-left: 10rpx;
+  color: rgb(26, 26, 26);
+}
+
+.item .view2 image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.view2 text {
+  font-size: 30rpx;
+  margin-right: 10rpx;
+  color: rgb(66, 66, 66);
+}
+
+/* share */
+.share {
+  height: 200rpx;
+  border-radius: 10rpx;
+  margin: 20rpx;
+  margin-top: 50rpx;
+}
+
+.share image {
+  height: 100%;
+  width: 100%;
+  border-radius: 10rpx;
+}
+
+.share button {
+  width: 100%;
+  height: 200rpx;
+  margin-top: -200rpx;
+  background: transparent;
+}
+
+.share button::after {
+  border: none;
+}
+
+/* backendMenus */
+.backendMenu {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50rpx;
+}
+
+.menu {
+  background: rgb(70, 70, 70);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15rpx;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+}
+
+.menu image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.menu text {
+  margin-top: 10rpx;
+  color: white;
+  font-size: 30rpx;
+}

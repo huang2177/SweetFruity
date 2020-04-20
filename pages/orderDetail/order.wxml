@@ -6,7 +6,7 @@
 		<!-- locationInfo -->
 		<view class="location cardContent" bindtap="updateLocation">
 			<view class="locationInfo">
-				<image class="imgLocation" src="./image/location.png" />
+				<image class="imgLocation" src="../image/location.png" />
 
 				<view class="locationInfo2">
 					<view class="userInfo">
@@ -18,13 +18,13 @@
 				</view>
 			</view>
 
-			<image class="locationArrow" src="./image/arrow.png" />
+			<image class="locationArrow" src="../image/arrow.png" />
 		</view>
 
 		<!-- orderDetail -->
 		<view class="orderDetail cardContent">
 			<view class="storeInfo">
-				<image class='storeImg' src='./image/logo.jpeg' mode="aspectFill"></image>
+				<image class='storeImg' src='../image/logo.jpeg' mode="aspectFill"></image>
 				<text class="storeName">果味缘（中海国际店）</text>
 			</view>
 
@@ -53,8 +53,6 @@
 		</view>
 
 	</scroll-view>
-
-
 
 	<!-- bottomLayout -->
 	<view class="bottomLayout">

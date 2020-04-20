@@ -1,34 +1,46 @@
-function getUserInfo(that, e) {
+function getUserInfo(e, callBack) {
   if (e.detail.userInfo) {
     var nickName = e.detail.userInfo.nickName
     var avatarUrl = e.detail.userInfo.avatarUrl
     wx.setStorageSync('nickName', nickName)
     wx.setStorageSync('avatarUrl', avatarUrl)
-    that.setData({
-      hasNickName: true,
-    })
+    callBack(nickName, avatarUrl)
   }
 }
 
-function getPhoneNumber(that, e, callBack) {
+function getPhoneNumber(e, callBack) {
   if (e.detail.encryptedData) {
     wx.cloud.callFunction({
       name: 'login',
       data: {
+        action: 'phoneNumber',
         baseData: wx.cloud.CloudID(e.detail.cloudID)
       }
     }).then(res => {
+      var openId = res.result.openId
       var phoneNumber = res.result.event.baseData.data.phoneNumber
+      wx.setStorageSync('openId', openId)
       wx.setStorageSync('phoneNumber', phoneNumber)
-      that.setData({
-        hasPhoneNumber: true,
-      })
-      callBack()
+      callBack(phoneNumber)
     })
   }
 }
 
+function getOpenId(callBack) {
+  wx.cloud.callFunction({
+    name: 'login',
+    data: {
+      action: 'openId',
+    }
+  }).then(res => {
+    var openId = res.result.openId
+    wx.setStorageSync('openId', openId)
+    callBack(openId)
+  })
+}
+
 module.exports = {
+  getOpenId: getOpenId,
   getUserInfo: getUserInfo,
   getPhoneNumber: getPhoneNumber
 }

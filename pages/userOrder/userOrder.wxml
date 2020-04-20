@@ -1,0 +1,50 @@
+<!--pages/userOrder/userOrder.wxml-->
+<image class="emptyHolder" src="../image/emptyData.png" hidden="{{orderInfo.length != 0}}" />
+
+<block wx:for="{{orderInfo}}" wx:key="key">
+	<view class="cardContent {{item.isCompleted ? 'completed' : ''}}">
+		<text class="desc">商品信息</text>
+		<block wx:for="{{item.orders}}" wx:key="key">
+			<view class='listItem'>
+				<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
+				<text class="goodsTitle">{{item.text}}</text>
+				<text class="goodsSum">x{{item.sum}}</text>
+				<text class='goodsUnitPrice'>¥{{item.unitPrice}}</text>
+			</view>
+		</block>
+
+		<view class="divider" />
+
+		<view class="userInfo">
+			<image class='avatarUrl' src='{{item.userInfo.avatarUrl}}' mode="aspectFill" />
+			<text class="nickName">{{item.userInfo.nickName}}</text>
+			<text class="phoneNumber">{{item.userInfo.phoneNumber}}</text>
+		</view>
+
+		<view class="item">
+			<text>合计：</text>
+			<text>¥{{item.totalMoney}}</text>
+		</view>
+		<view class="item">
+			<text>订单状态：</text>
+			<text class="status">{{item.isCompleted ? '已完成' : '配送中'}}</text>
+		</view>
+		<view class="item">
+			<text>收货地址：</text>
+			<text>{{item.userInfo.location}}</text>
+		</view>
+		<view class="item" hidden="{{!item.deliveryTime}}">
+			<text>配送时间：</text>
+			<text>{{item.deliveryTime}}</text>
+		</view>
+		<view class="item" hidden="{{!item.comments}}">
+			<text>留言备注：</text>
+			<text >{{item.comments}}</text>
+		</view>
+		<view class="item" hidden="{{!item.createTime}}">
+			<text>创建时间：</text>
+			<text>{{item.createTime}}</text>
+		</view>
+
+	</view>
+</block>
