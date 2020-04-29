@@ -39,8 +39,15 @@
 		</view>
 
 		<view class="cardContent">
-			<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-				<view class="deliveryTime">
+			<picker mode="selector" bindchange="bindPickerChange" range="{{deliveryWays}}">
+				<view class="delivery">
+					<text class="defaultText">配送方式</text>
+					<text class="timeText">{{deliveryWay}} ></text>
+				</view>
+			</picker>
+
+			<picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{multiIndex}}" range="{{multiArray}}">
+				<view class="delivery">
 					<text class="defaultText">配送时间</text>
 					<text class="timeText">{{deliveryTime}} ></text>
 				</view>

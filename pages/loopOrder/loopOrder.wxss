@@ -56,6 +56,11 @@ page {
   margin-top: 10rpx;
 }
 
+.otherInfo .importantInfo {
+  font-weight: 600;
+  color: black;
+}
+
 .divider {
   height: 0.5rpx;
   margin-top: 30rpx;

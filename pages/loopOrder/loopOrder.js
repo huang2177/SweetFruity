@@ -14,8 +14,8 @@ Page({
         orderInfo: res.result.data,
       })
     }).catch(err => {
-      wx.showToast({
-        title: '加载失败！',
+      that.setData({
+        orderInfo: [],
       })
     })
   },

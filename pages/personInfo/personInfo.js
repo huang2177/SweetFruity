@@ -1,5 +1,4 @@
 // pages/personInfo/personInfo.js
-var isManager = false
 const db = wx.cloud.database()
 const util = require('../../utils/util.js')
 const userInfo = require('../../utils/userInfo.js')
@@ -16,8 +15,11 @@ Page({
 
   onLoad() {
     const that = this
+    that.updateBackendInfo()
+
     that.setData({
       bgImage: that.getBgImage(),
+      items: that.getItemsData(false),
     })
   },
 
@@ -27,13 +29,10 @@ Page({
     const avatarUrl = wx.getStorageSync('avatarUrl')
     const phoneNumber = wx.getStorageSync('phoneNumber')
     that.setData({
-      items: that.getItemsData(isManager),
       nickName: nickName ? nickName : '点击登录',
-      phoneNumber: phoneNumber ? phoneNumber : '获取手机号码',
       avatarUrl: avatarUrl ? avatarUrl : "../image/head.png",
+      phoneNumber: that.hidePhoneCenterNumberIfNotNull(phoneNumber),
     })
-
-    that.updateBackendInfo()
   },
 
   /**
@@ -41,15 +40,14 @@ Page({
    */
   updateBackendInfo: function () {
     var that = this
-    var managerPhones = []
-    const phone = that.data.phoneNumber
     db.collection('backendManager').get({
       success: function (res) {
-        managerPhones = res.data[0].managerPhones
-        isManager = managerPhones.indexOf(phone) >= 0
+        const phone = wx.getStorageSync('phoneNumber')
+        const managerPhones = res.data[0].managerPhones
+        const isManager = managerPhones.indexOf(phone) >= 0
         if (isManager) {
           that.setData({
-            items: that.getItemsData(isManager),
+            items: that.getItemsData(true),
           })
         }
       }
@@ -93,8 +91,6 @@ Page({
           content: '您还未登录，请登录后重试！',
         })
         return true
-      } else if (!wx.getStorageSync('openId')) {
-        userInfo.getOpenId()
       }
     }
     return false
@@ -122,7 +118,7 @@ Page({
     const that = this
     userInfo.getPhoneNumber(e, phoneNumber => {
       that.setData({
-        phoneNumber: phoneNumber,
+        phoneNumber: that.hidePhoneCenterNumberIfNotNull(phoneNumber),
       })
       that.updateBackendInfo()
     })
@@ -169,5 +165,13 @@ Page({
       }
     ]
     return isManager ? data : data.splice(0, 3)
-  }
+  },
+
+  hidePhoneCenterNumberIfNotNull(phone) {
+    if (phone && phone.length == 11) {
+      return phone.substring(0, 3) + ' **** ' + phone.substring(7, 11)
+    }
+    return '获取手机号码'
+  },
+
 })

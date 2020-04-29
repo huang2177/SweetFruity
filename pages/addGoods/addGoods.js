@@ -1,7 +1,7 @@
 // miniprogram/pages/addGoods/addGoods.js
+const db = wx.cloud.database()
 const util = require('../../utils/util.js')
 const goodsDbUtil = require('../../utils/goodsDBUtil.js')
-const db = wx.cloud.database()
 
 Page({
   data: {
@@ -80,7 +80,7 @@ Page({
       return
     }
 
-    if (filePath == that.data.goods.url) {
+    if (that.data.goods && filePath == that.data.goods.url) {
       that.upload(filePath)
     } else {
       var timestamp = Date.parse(new Date());
@@ -108,7 +108,6 @@ Page({
         unitPrice: that.data.price,
         oldPrice: that.data.oldPrice,
         stockNum: Number(that.data.stockNum),
-        sellNum: ((that.data.price / that.data.oldPrice) * 10).toFixed(2),
       }]
     }
 

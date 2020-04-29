@@ -3,36 +3,54 @@ page {
   background: rgb(243, 243, 243);
 }
 
-.headBg {
-  width: 100%;
-  height: 400rpx;
-  border-radius: 100rpx;
-  background: rgba(255, 179, 16, 1);
+/* content */
+.storeInfo {
+  padding-left: 3%;
+  padding-right: 2.5%;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  margin-top: 20rpx;
+  background: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* content */
-.content {
-  margin-left: 20rpx;
-  margin-right: 20rpx;
-  padding-bottom: 35rpx;
-  margin-top: 20rpx;
-  border-radius: 10rpx;
-  background: white;
+.storeInfo view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.storeInfo text {
+  color: #4c4c4b;
+  font-size: 24rpx;
+  margin-left: 25rpx;
+}
+
+.storeInfo image {
+  height: 56rpx;
+  width: 56rpx;
+  border-radius: 90rpx;
 }
 
 .listItem {
-  padding-left: 20rpx;
-  padding-right: 20rpx;
-  padding-top: 35rpx;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  margin-top: 2rpx;
   display: flex;
   flex-direction: row;
+  background: white;
 }
 
 .goodsImg {
-  width: 160rpx;
-  height: 120rpx;
-  min-width: 160rpx;
-  border-radius: 10rpx;
+  width: 140rpx;
+  height: 140rpx;
+  min-width: 140rpx;
+  border-radius: 180rpx;
 }
 
 .listText {
@@ -45,7 +63,6 @@ page {
 
 
 .listText .view {
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -57,23 +74,16 @@ page {
   height: 48rpx;
 }
 
+.listText .unitPrice {
+  color: rgb(255, 102, 0);
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
 .listText text {
   font-size: 30rpx;
   font-weight: 500;
   color: rgb(20, 20, 20);
-}
-
-.listText .unitPrice {
-  color: rgba(255, 179, 16, 1);
-  font-size: 34rpx;
-  width: 100rpx;
-}
-
-.devider {
-  height: 1rpx;
-  width: 100%;
-  margin-top: 40rpx;
-  background: rgb(228, 228, 228);
 }
 
 .commitOrder {
@@ -155,23 +165,24 @@ page {
   font-size: 34rpx;
   color: rgb(255, 102, 0);
   font-weight: 700;
-  margin-top: 80rpx;
+  margin-top: 100rpx;
 }
 
 .recommend {
-  width: 100%;
   display: flex;
   flex-flow: row wrap;
   align-content: center;
   margin-top: 20rpx;
+  margin-left: 2.2%;
+  margin-right: 2.2%;
 }
 
 .child {
   background-color: white;
-  flex: 0 0 44%;
+  flex: 0 0 45%;
   margin-top: 4%;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   display: flex;
   flex-direction: column;
   border-radius: 15rpx;
@@ -179,7 +190,9 @@ page {
 
 .child image {
   width: 100%;
-  height: 280rpx;
+  height: 320rpx;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
 }
 
 .goodsName {
@@ -191,7 +204,7 @@ page {
   color: rgb(20, 20, 20);
 }
 
-.view {
+.view1 {
   margin-top: 25rpx;
   display: flex;
   flex-direction: row;
@@ -201,13 +214,21 @@ page {
   padding-bottom: 20rpx;
 }
 
-.view .unitPrice {
-  color: rgba(255, 179, 16, 1);
+.view1 .oldPrice {
+  text-decoration: line-through;
   font-size: 34rpx;
+  color: rgba(111, 104, 78, 1);
   margin-left: 20rpx;
 }
 
-.view image {
+.view1 .unitPrice {
+  color: rgb(255, 102, 0);
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-left: 10rpx;
+}
+
+.view1 image {
   width: 48rpx;
   height: 48rpx;
   margin-right: 20rpx;
@@ -215,4 +236,16 @@ page {
 
 .placeHolder {
   height: 200rpx;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  height: 0rpx;
+  color: rgba(0, 0, 0, 0);
 }

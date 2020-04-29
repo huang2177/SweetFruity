@@ -1,6 +1,8 @@
 <!--pages/personInfo/personInfo.wxml-->
 <image class="bgImage" src="{{bgImage}}" mode="aspectFill" />
 
+<view class="placeHolder" />
+
 <view class="userInfo">
 	<image class='avatarUrl' src='{{avatarUrl}}' mode="aspectFill" />
 	<view>
@@ -23,7 +25,6 @@
 	</view>
 </block>
 
-<!-- menu for backend deploy -->
 <view class="share">
 	<image src="../image/img_share.jpg" mode="aspectFill" bindtap="shareApp" />
 	<button data-id="shareBtn" open-type="share" />

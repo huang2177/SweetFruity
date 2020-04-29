@@ -10,7 +10,8 @@
 		</view>
 		<view class="otherInfo">
 			<text bindtap="{{item.isCompleted ? '' : 'call'}}" data-phone="{{item.userInfo.phoneNumber}}">{{item.userInfo.location}}</text>
-			<text>配送时间：{{item.deliveryTime}}</text>
+			<text class="importantInfo" hidden="{{!item.deliveryWay}}">配送方式：{{item.deliveryWay}}</text>
+			<text class="importantInfo" hidden="{{!item.deliveryTime}}">配送时间：{{item.deliveryTime}}</text>
 			<text hidden="{{!item.comments}}">留言备注：{{item.comments}}</text>
 		</view>
 

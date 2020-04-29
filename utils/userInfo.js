@@ -33,9 +33,11 @@ function getOpenId(callBack) {
       action: 'openId',
     }
   }).then(res => {
+    console.log(res)
     var openId = res.result.openId
     wx.setStorageSync('openId', openId)
-    callBack(openId)
+
+    if (callBack) callBack(openId)
   })
 }
 

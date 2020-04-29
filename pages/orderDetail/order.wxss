@@ -32,7 +32,7 @@ page {
 .imgLocation {
   width: 48rpx;
   height: 48rpx;
-  background: rgba(255, 193, 7, 255);
+  background: #FFB310;
   border-radius: 180rpx;
   padding: 15rpx;
 }
@@ -95,8 +95,8 @@ page {
 }
 
 .goodsImg {
-  height: 48rpx;
-  width: 64rpx;
+  height: 56rpx;
+  width: 72rpx;
 }
 
 .listText {
@@ -119,21 +119,21 @@ page {
 }
 
 .goodsUnitPrice {
-  color: rgb(255, 193, 7);
+  color: rgb(255, 102, 0);
 }
 
 /* time and comment */
-.deliveryTime {
+.delivery {
   display: flex;
   flex-direction: raw;
   justify-content: space-between;
+  margin-bottom: 35rpx;
 }
 
 .comment {
   display: flex;
   flex-direction: raw;
   justify-content: space-between;
-  margin-top: 35rpx;
 }
 
 .comment input {
@@ -165,12 +165,12 @@ page {
 }
 
 .totalMoney {
-  color: rgb(255, 193, 7);
+  color: rgb(255, 102, 0);
 }
 
 .commitOrder {
   border-radius: 90rpx;
-  background: rgb(255, 193, 7);
+  background: rgb(255, 102, 0);
   color: white;
   padding-left: 25rpx;
   padding-right: 28rpx;

@@ -7,6 +7,8 @@ App({
   onLaunch: function () {
     this.initDB()
     this.getCartsSum(wx.getStorageSync('carts'))
+    //https://6465-dev-3i7nf-1301412224.tcb.qcloud.la/1587906451000.jpg?sign=c03719875ab84e4a8eaf8ffe1a4347c1&t=1588001416
+    //cloud://dev-3i7nf.6465-dev-3i7nf-1301412224/1587906451000.jpg
   },
 
   initDB() {

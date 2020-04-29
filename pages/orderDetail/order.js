@@ -1,4 +1,7 @@
 var count = 0
+var orderId = ''
+var comments = ''
+var index = []
 const db = wx.cloud.database()
 const util = require('../../utils/util.js')
 const goodsDBUtil = require('../../utils/goodsDBUtil.js')
@@ -6,13 +9,14 @@ const shopCarUtil = require('../../utils/shopCarUtil.js')
 
 Page({
   data: {
-    multiIndex: [0, 0, 0],
+    deliveryWay: '未选择',
     deliveryTime: '未选择',
+    index: [0, 0],
     multiArray: [
       ['今天', '明天'],
-      ['上午', '下午'],
-      ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30']
+      util.getCustomTimes(),
     ],
+    deliveryWays: ['商家配送', '到店自取']
   },
 
   onLoad: function (options) {
@@ -32,103 +36,98 @@ Page({
 
   onShow() {
     const that = this
-    const locationS = wx.getStorageSync("location")
-    const location = locationS ? locationS : '未填写收货地址！'
+    const location = wx.getStorageSync("location")
     that.setData({
-      location: location,
+      location: location ? location : '未填写收货地址！',
     })
   },
 
-  updateLocation: function () {
-    wx.navigateTo({
-      url: '../locationEdit/locationEdit'
-    })
-  },
-
-  //提交订单
+  /**
+   * 提交订单
+   */
   commitOrder: function () {
     var that = this
-    if (!that.isValidLocation()) {
-      wx.showModal({
-        title: '提示',
-        content: '还未填写收货地址！',
-        success: function (res) {
-          if (!res.cancel) {
-            that.updateLocation()
-          }
-        },
-      })
+    if (!that.isValidOrderInfo()) {
+      that.showModal('请填写完整订单信息，以便商家配送')
       return
     }
-    if (that.data.deliveryTime == '未选择') {
-      wx.showModal({
-        title: '提示',
-        content: '还未选择配送时间！',
-      })
-      return
-    }
+
     wx.showLoading()
-    const orderId = util.randomWord()
+    orderId = util.randomWord()
     wx.cloud.callFunction({
       name: "pay",
       data: {
         orderid: orderId,
         money: Number(that.data.totalMoney) * 100,
       },
-      success(res) {
-        wx.hideLoading()
-        that.pay(res.result)
-        that.setData({
-          orderId: orderId
-        })
-      },
-      fail(res) {
-        console.log(res)
-        wx.hideLoading()
-        wx.showModal({
-          title: '提示',
-          content: '订单提交失败，是否重新提交?',
-          showCancel: true,
-          success: function (res) {
-            if (!res.cancel) {
-              that.commitOrder()
-            }
-          },
-        })
-      }
+    }).then(res => {
+      wx.hideLoading()
+      that.requestPay(res.result)
+    }).catch(err => {
+      console.log(err)
+      wx.hideLoading()
+      that.showModal('订单提交失败，请稍后重试！')
     })
   },
 
-  //实现小程序支付
-  pay(payData) {
+  /**
+   * 实现小程序支付
+   * @param {订单数据} payData 
+   */
+  requestPay(payData) {
     var that = this
     wx.requestPayment({
-      timeStamp: payData.timeStamp,
-      nonceStr: payData.nonceStr,
-      package: payData.package, //统一下单接口返回的 prepay_id 格式如：prepay_id=***
       signType: 'MD5',
       paySign: payData.paySign, //签名
-      success(res) {
-        that.uploadOrderInfo()
-        that.showSuccessDialog()
-        that.updateGoodsStockNum()
-        shopCarUtil.clearShopCar()
-      },
-      fail(res) {
-        wx.showModal({
-          title: '提示',
-          content: '订单支付失败，是否重新支付?',
-          showCancel: true,
-          success: function (res) {
-            if (!res.cancel) {
-              that.pay(payData)
-            }
-          },
-        })
-      }
+      package: payData.package, //统一下单接口返回的 prepay_id 格式如：prepay_id=***
+      nonceStr: payData.nonceStr,
+      timeStamp: payData.timeStamp,
+    }).then(res => {
+      that.showModal('支付成功，我们会尽快为您配送，请耐心等。')
+      that.uploadOrderInfo()
+      shopCarUtil.clearShopCar()
+      that.updateGoodsStockNum()
+    }).catch(err => {
+      that.showModal('订单支付失败，请稍后重试！')
     })
   },
 
+  /**
+   * 上传订单信息
+   */
+  uploadOrderInfo: function () {
+    var that = this
+    const array = that.data.multiArray
+    const deliveryTime = util.getDateStr(index[0]) + ' ' + array[1][index[1]]
+    const userInfo = {
+      location: wx.getStorageSync("location"),
+      nickName: wx.getStorageSync('nickName'),
+      avatarUrl: wx.getStorageSync('avatarUrl'),
+      phoneNumber: wx.getStorageSync('phoneNumber'),
+    }
+
+    db.collection('orderInfo').add({
+      data: {
+        orderId: orderId,
+        isCompleted: false,
+        comments: comments,
+        userInfo: userInfo,
+        deliveryTime: deliveryTime,
+        orders: that.data.goodsList,
+        createTime: new Date().getTime(),
+        totalMoney: that.data.totalMoney,
+        deliveryWay: that.data.deliveryWay,
+      }
+    })
+
+    that.setData({
+      isPaySuccess: true
+    })
+  },
+
+  /**
+   * 更新库存
+   */
   updateGoodsStockNum() {
     var that = this
     var goodsList = that.data.goodsList
@@ -142,91 +141,43 @@ Page({
     }
   },
 
-  uploadOrderInfo: function () {
+  bindPickerChange(e) {
     var that = this
-    const userInfo = {
-      location: wx.getStorageSync("location"),
-      nickName: wx.getStorageSync('nickName'),
-      avatarUrl: wx.getStorageSync('avatarUrl'),
-      phoneNumber: wx.getStorageSync('phoneNumber'),
-    }
-    const index = that.data.multiIndex
-    const array = that.data.multiArray
-    const deliveryTime = util.getDateStr(index[0]) + ' ' + array[1][index[1]] + ' ' + array[2][index[2]]
-    const data = {
-      isCompleted: false,
-      userInfo: userInfo,
-      orderId: that.data.orderId,
-      orders: that.data.goodsList,
-      totalMoney: (that.data.totalMoney),
-      comments: that.data.comments,
-      deliveryTime: deliveryTime,
-      createTime: new Date().getTime(),
-    }
-
-    db.collection('orderInfo')
-      .add({
-        data: data,
-        success: function (res) {
-          console.log('订单信息上传成功：' + res)
-        },
-        fail: function (res) {
-          console.log('订单信息上传失败：' + res)
-        }
-      })
-  },
-
-  showSuccessDialog: function () {
-    wx.showModal({
-      title: '提示',
-      content: '支付成功，我们会尽快为您配送，请耐心等。',
-    })
-    this.setData({
-      isPaySuccess: true
+    const index = e.detail.value
+    that.setData({
+      deliveryWay: that.data.deliveryWays[index]
     })
   },
 
   bindMultiPickerChange: function (e) {
-    const index = e.detail.value
-    const multiArray = this.data.multiArray
-    this.setData({
-      multiIndex: index,
-      deliveryTime: '预计 ' + multiArray[0][index[0]] + multiArray[1][index[1]] + multiArray[2][index[2]] + ' 送达',
-    })
-  },
-
-  bindMultiPickerColumnChange: function (e) {
-    const value = e.detail.value
-    const column = e.detail.column
-    if (column != 1) {
+    var that = this
+    index = e.detail.value
+    const day = that.data.multiArray[0][index[0]]
+    const time = that.data.multiArray[1][index[1]]
+    if (!util.inDeliveryTime(day, time)) {
+      that.showModal('所选时间不在配送时间范围内，请重新选择！')
       return
     }
-    var multiArray = []
-    if (value == 0) { //上午
-      multiArray = [
-        ['今天', '明天'],
-        ['上午', '下午'],
-        ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30']
-      ]
-    } else {
-      multiArray = [
-        ['今天', '明天'],
-        ['上午', '下午'],
-        ['01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00']
-      ]
-    }
-    this.setData({
-      multiArray: multiArray,
+    that.setData({
+      deliveryTime: '预计 ' + day + time + ' 送达',
     })
   },
 
   onCommentInput: function (e) {
-    this.setData({
-      comments: e.detail.value,
-    })
+    comments = e.detail.value
   },
 
-  isValidLocation: function () {
-    return this.data.location && this.data.location != '未填写收货地址！'
+  isValidOrderInfo: function () {
+    return this.data.deliveryTime != '未选择' &&
+      this.data.deliveryWay != '未选择' &&
+      this.data.location != '未填写收货地址！'
   },
+
+  showModal(content, showCancel = false) {
+    wx.showModal({
+      title: '提示',
+      content: content,
+      showCancel: showCancel
+    })
+  }
 })

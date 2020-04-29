@@ -9,31 +9,40 @@
 </view>
 
 <!-- content -->
-<view class="content" hidden="{{carts.length == 0}}">
-	<block wx:for="{{carts}}" wx:key="key">
-		<view class='listItem'>
-			<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
-			<view class='listText'>
-				<text>{{item.text}}</text>
-				<view class="view">
-					<text class='unitPrice'>¥{{item.unitPrice}}</text>
-					<text class='sum'>x{{item.sum}}</text>
-					<image src='../image/remove.png' bindtap="removeFromShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill"></image>
-				</view>
-			</view>
-		</view>
-	</block>
+<view class="storeInfo" hidden="{{carts.length == 0}}">
+	<view>
+		<image src='../image/logo.jpeg' mode="aspectFill"></image>
+		<text class="storeName">果味缘（中海国际店）</text>
+	</view>
+	<image src="../image/delete.png" bindtap="clearShopCar" />
 </view>
 
+<block wx:for="{{carts}}" wx:key="key">
+	<view class='listItem'>
+		<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
+		<view class='listText'>
+			<text>{{item.text}}</text>
+			<view class="view">
+				<text class='unitPrice'>¥{{item.unitPrice}}</text>
+				<text class='sum'>x{{item.sum}}</text>
+				<image src='../image/remove.png' bindtap="removeFromShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill"></image>
+			</view>
+		</view>
+	</view>
+</block>
+
 <!-- recommend -->
-<text class="recommendText">—— 猜你喜欢 ——</text>
+<text class="recommendText">—— ♡ 今日推荐 ——</text>
 <view class="recommend ">
 	<block wx:for="{{dayRecommend}}" wx:key="key">
 		<view class="child">
-			<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
+			<image src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
 			<text class="goodsName">{{item.text}}</text>
-			<view class="view">
-				<text class='unitPrice'>¥{{item.unitPrice}}</text>
+			<view class="view1">
+				<view>
+					<text class='oldPrice'>¥{{item.oldPrice}}</text>
+					<text class='unitPrice'>¥{{item.unitPrice}}</text>
+				</view>
 				<image src="../image/add.png" bindtap="addToShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill" />
 			</view>
 		</view>

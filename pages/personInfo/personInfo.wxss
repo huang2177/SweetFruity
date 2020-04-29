@@ -5,7 +5,15 @@ page {
 
 .bgImage {
   width: 100%;
-  height: 300rpx;
+  height: 250rpx;
+}
+
+.placeHolder {
+  background: white;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  height: 90rpx;
+  margin-top: -10rpx;
 }
 
 /* userinfo */
@@ -14,9 +22,9 @@ page {
   height: 140rpx;
   flex-direction: row;
   align-items: center;
-  margin-top: -180rpx;
   margin-left: 30rpx;
-  margin-bottom: 70rpx;
+  margin-top: -160rpx;
+  margin-bottom: 50rpx;
 }
 
 .avatarUrl {
@@ -26,13 +34,21 @@ page {
 }
 
 .userInfo button {
-  color: white;
-  font-size: 38rpx;
   font-weight: 500;
   background: transparent;
   height: 70rpx;
   line-height: 70rpx;
   text-align: left;
+}
+
+.nickName {
+  font-size: 40rpx;
+  color: white;
+}
+
+.phoneNumber {
+  font-size: 36rpx;
+  color: black;
 }
 
 .userInfo button::after {

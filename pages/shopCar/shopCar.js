@@ -26,25 +26,23 @@ Page({
   setCarts(carts) {
     const that = this
     that.setData({
-      totalMoney: (shopCarUtil.getTotalSum(carts).totalMoney).toFixed(2),
       carts: carts ? carts : [],
+      totalMoney: (shopCarUtil.getTotalSum(carts).totalMoney).toFixed(2),
     })
   },
 
   getGoodsListData(fun) {
     const that = this
-    db.collection("goodsListData").get({
-      success: function (res) {
-        if (fun) fun(res.data)
+    db.collection("goodsListData").get().then(res => {
+      if (fun) fun(res.data)
 
-        res.data.forEach(goods => {
-          if ('每日促销' == goods['text']) {
-            that.setData({
-              dayRecommend: goods.content
-            })
-          }
-        })
-      },
+      res.data.forEach(goods => {
+        if ('每日促销' == goods['text']) {
+          that.setData({
+            dayRecommend: goods.content
+          })
+        }
+      })
     })
   },
 
@@ -70,14 +68,30 @@ Page({
   },
 
   /**
+   * 清空购物车
+   */
+  clearShopCar() {
+    var that = this
+    that.showModal('确定清空购物车吗？', true, function () {
+      shopCarUtil.clearShopCar(that.setCarts)
+    })
+  },
+
+  /**
    * 跳转到订单详情
    */
   jumpToOrderPage: function () {
-    if (this.hasCarts()) {
-      wx.navigateTo({
-        url: '../orderDetail/order'
-      })
-    }
+    var that = this
+    that.getGoodsListData(data => {
+      shopCarUtil.hasStock(data, function () {
+          wx.navigateTo({
+            url: '../orderDetail/order'
+          })
+        },
+        function (goodsName) {
+          that.showModal('商品【' + goodsName + '】可能已下架，请重新选择!')
+        })
+    })
   },
 
   /**
@@ -90,25 +104,21 @@ Page({
   },
 
   getUserInfo(e) {
-    if (this.hasCarts()) {
-      userInfo.getUserInfo(e, this.onShow)
-    }
+    userInfo.getUserInfo(e, this.onShow)
   },
 
   getPhoneNumber(e) {
     userInfo.getPhoneNumber(e, this.jumpToOrderPage)
   },
 
-  hasCarts() {
-    var that = this
-    if (that.data.carts.length == 0) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: '您还没有选择任何商品！',
-      })
-    }
-    return that.data.carts.length != 0
+  showModal(content, showCancel = false, fun = null) {
+    wx.showModal({
+      title: '提示',
+      content: content,
+      showCancel: showCancel,
+      success: function (res) {
+        if (res.confirm && fun) fun()
+      }
+    })
   }
-
 })

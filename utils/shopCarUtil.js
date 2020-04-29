@@ -78,8 +78,10 @@ function removeFromShopCar(goodsId, fun) {
 }
 
 // 清空购物车
-function clearShopCar() {
+function clearShopCar(fun) {
   wx.setStorageSync('carts', [])
+  getApp().getCartsSum([])
+  if (fun) fun([])
 }
 
 // 计算购物车数量
@@ -107,7 +109,40 @@ function getTotalSum(carts) {
   return data
 }
 
+/**
+ * 判断商品是否下架
+ * @param {*} data 
+ * @param {*} fun 
+ */
+function hasStock(data, success, error) {
+  var hasStock
+  var goodsName
+  const goodsIds = []
+  const carts = wx.getStorageSync('carts')
+  data.forEach(function (goodsData, i) {
+    goodsData.content.forEach(function (goods, i) {
+      goodsIds.push(goods['goodsId'])
+    })
+  })
+  for (let i = 0; i < carts.length; i++) {
+    const cart = carts[i];
+    if (goodsIds.indexOf(cart['goodsId']) >= 0) {
+      hasStock = true
+    } else {
+      hasStock = false
+      goodsName = cart['text']
+      break
+    }
+  }
+  if (hasStock) {
+    success()
+  } else {
+    error(goodsName)
+  }
+}
+
 module.exports = {
+  hasStock: hasStock,
   getTotalSum: getTotalSum,
   getCartsSum: getCartsSum,
   clearShopCar: clearShopCar,

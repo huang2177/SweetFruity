@@ -27,9 +27,39 @@ function getDateStr(addDayCount) {
   return m + "-" + d;
 }
 
+/**
+ * 生成配送时间list
+ */
+function getCustomTimes() {
+  const times = []
+  for (var i = 10; i < 22; i++) {
+    times.push(i + ' : 00')
+    times.push(i + ' : 30')
+  }
+  times.push(22 + ' : 00')
+  return times
+}
+
+function inDeliveryTime(day, time) {
+  if (day == '明天') {
+    return true
+  }
+  const currHours = new Date().getHours()
+  const currMinutes = new Date().getMinutes()
+  const times = time.replace('00', '0').split(' : ')
+  if (currHours > Number(times[0])) {
+    return false
+  }
+  if (currHours == Number(times[0]) && currMinutes > Number(times[1])) {
+    return false
+  }
+  return true
+}
 
 module.exports = {
   randomInt: randomInt,
   getDateStr: getDateStr,
   randomWord: randomWord,
+  getCustomTimes: getCustomTimes,
+  inDeliveryTime: inDeliveryTime,
 }

@@ -33,6 +33,10 @@
 			<text>收货地址：</text>
 			<text>{{item.userInfo.location}}</text>
 		</view>
+		<view class="item" hidden="{{!item.deliveryWay}}">
+			<text>配送方式：</text>
+			<text>{{item.deliveryWay}}</text>
+		</view>
 		<view class="item" hidden="{{!item.deliveryTime}}">
 			<text>配送时间：</text>
 			<text>{{item.deliveryTime}}</text>
