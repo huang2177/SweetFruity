@@ -9,7 +9,8 @@
     "pages/locationEdit/locationEdit",
     "pages/shopCar/shopCar",
     "pages/personInfo/personInfo",
-    "pages/userOrder/userOrder"
+    "pages/userOrder/userOrder",
+    "pages/goodsSearch/goodsSearch"
   ],
   "window": {
     "backgroundTextStyle": "light",

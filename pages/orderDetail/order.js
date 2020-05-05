@@ -6,6 +6,7 @@ const db = wx.cloud.database()
 const util = require('../../utils/util.js')
 const goodsDBUtil = require('../../utils/goodsDBUtil.js')
 const shopCarUtil = require('../../utils/shopCarUtil.js')
+const goodsRecommend = require('../../utils/goodsRecommend.js')
 
 Page({
   data: {
@@ -83,10 +84,10 @@ Page({
       nonceStr: payData.nonceStr,
       timeStamp: payData.timeStamp,
     }).then(res => {
-      that.showModal('支付成功，我们会尽快为您配送，请耐心等。')
+      that.showModal('支付成功，我们会尽快为您配送，请耐心等!')
       that.uploadOrderInfo()
+      that.updateOtherInfo()
       shopCarUtil.clearShopCar()
-      that.updateGoodsStockNum()
     }).catch(err => {
       that.showModal('订单支付失败，请稍后重试！')
     })
@@ -114,31 +115,24 @@ Page({
         userInfo: userInfo,
         deliveryTime: deliveryTime,
         orders: that.data.goodsList,
-        createTime: new Date().getTime(),
         totalMoney: that.data.totalMoney,
         deliveryWay: that.data.deliveryWay,
+        createTime: new Date().toLocaleString,
       }
-    })
-
-    that.setData({
-      isPaySuccess: true
     })
   },
 
   /**
-   * 更新库存
+   * 更新其他信息
    */
-  updateGoodsStockNum() {
+  updateOtherInfo() {
     var that = this
-    var goodsList = that.data.goodsList
-    if (count < goodsList.length) {
-      goodsDBUtil.updateGoodsStockNum(goodsList[count]['goodsId'], goodsList[count]['sum'], any => {
-        count++
-        setTimeout(function () {
-          that.updateGoodsStockNum()
-        }, 1000)
-      })
-    }
+    that.data.goodsList.forEach(goods => {
+      goodsRecommend.updateRecommend(goods.goodsId, 'RECOMMEND_BUY')
+    })
+    that.setData({
+      isPaySuccess: true
+    })
   },
 
   bindPickerChange(e) {
@@ -165,6 +159,11 @@ Page({
 
   onCommentInput: function (e) {
     comments = e.detail.value
+  },
+  updateLocation() {
+    wx.navigateTo({
+      url: '../locationEdit/locationEdit',
+    })
   },
 
   isValidOrderInfo: function () {

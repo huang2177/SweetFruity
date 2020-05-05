@@ -1,50 +1,34 @@
 // pages/locationEdit/locationEdit.js
+var location = ''
+
 Page({
 
-  data: {
-    location: '',
-    placeHolder: '',
-    hasDefaultLocation: false,
-  },
-
   onLoad: function (options) {
-    const location = wx.getStorageSync('location')
-    var title = location ? '修改收货地址' : '添加收货地址'
-    var isValidLocation = location && location != '未填写收货地址！'
-    var placeHolder = isValidLocation ? location : '请输入收货地址：'
-
     this.setData({
-      placeHolder: placeHolder,
-      hasDefaultLocation: isValidLocation,
-    })
-    wx.setNavigationBarTitle({
-      title: title
+      defaultLocation: wx.getStorageSync("location")
     })
   },
 
   onInputContent: function (e) {
-    this.setData({
-      location: e.detail.value,
-    })
+    location = e.detail.value
   },
 
-  onSaveLocation: function () {
-    var location = this.data.location
+  bindconfirm: function () {
     if (!location) {
       wx.showModal({
         title: '提示',
         content: '请填写有效的收货地址！',
-        showCancel: false,
       })
       return
     }
     wx.setStorageSync("location", location)
+    var pages = getCurrentPages();
+    var prepage = pages[pages.length - 2];
+    prepage.updateItems()
+
     wx.navigateBack({
       delta: 1,
     })
   },
 
-  isValidLocation: function (location) {
-    return location && location != '未填写收货地址！'
-  },
 })

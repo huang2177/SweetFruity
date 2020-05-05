@@ -32,7 +32,7 @@
 </block>
 
 <!-- recommend -->
-<text class="recommendText">—— ♡ 今日推荐 ——</text>
+<text class="recommendText">—— ♡ 猜你喜欢 ——</text>
 <view class="recommend ">
 	<block wx:for="{{dayRecommend}}" wx:key="key">
 		<view class="child">

@@ -4,6 +4,7 @@
 	<input placeholder='商品原价:' bindinput="onInputOldPrice" type="digit" value="{{goods.oldPrice}}" />
 	<input placeholder='商品价格:' bindinput="onInputPrice" type="digit" value="{{goods.unitPrice}}" />
 	<input placeholder='商品库存:' bindinput="onInputStockNum" type="digit" value="{{goods.stockNum}}" />
+	<input placeholder='商品类别:' bindinput="onInputCategory" value="{{goods.category}}" />
 
 	<view class="goodsClassify">
 		<button bindtap="showModal" disabled="{{goods}}">选择商品种类</button>

@@ -1,105 +1,47 @@
 //index.js
-const db = wx.cloud.database()
+var goodsList
+const util = require('../../utils/util.js')
 const shopCarUtil = require('../../utils/shopCarUtil.js')
-
+const goodsManager = require('../../utils/goodsManager.js')
 Page({
   data: {
-    rigId: 0,
-    classifySelect: '',
-    goodsListData: [],
-    goodsClassifies: [],
+    barHeight: getApp().globalData.statusBarHeight + 44
   },
 
-  onLoad: function (options) {
+  onLoad: function () {
     wx.showLoading({
       title: '加载中…'
     })
-  },
-
-  onShow: function () {
-    this.getGoodsClassifies()
+    this.getClassifiesAndGoods()
   },
 
   /**
-   * 获取商品分类数据
+   * 获取商品数据
    */
-  getGoodsClassifies: function (fun) {
+  getClassifiesAndGoods() {
     var that = this
-    db.collection("goodsClassifies").get({
-      success: function (res) {
-        that.getGoodsListData(res.data, fun)
-      }
-    })
-  },
+    goodsManager.getClassifiesAndGoods().then(res => {
+      goodsList = res.result.goodsList
+      const selected = that.data.classifySelect ? that.data.classifySelect : goodsList[0].id
 
-  /**
-   * 获取商品列表数据
-   * @param {商品分类} classifies 
-   */
-  getGoodsListData: function (classifies, fun) {
-    var that = this
-    db.collection("goodsListData").get({
-      success: function (res) {
-        if (fun) fun(res.data)
-
-        wx.hideLoading()
-        that.setGoodsListData(classifies, res.data)
-      },
-    })
-  },
-
-  /**
-   * 设置商品列表数据
-   * @param {商品列表数据} data 
-   */
-  setGoodsListData(classifies, data) {
-    var that = this
-    var goodsListData = []
-    classifies.forEach(classify => {
-      data.forEach(goods => {
-        if (classify['id'] == goods['id']) {
-          goodsListData.push(goods)
-        }
+      that.setData({
+        classifySelect: selected,
+        classifies: res.result.classifies,
+        goodsList: [].concat(goodsList).splice(0, 2),
       })
-    })
-    that.setData({
-      goodsClassifies: classifies,
-      goodsListData: goodsListData,
-      showEmptyImage: goodsListData == 0,
-      classifySelect: that.data.classifySelect ?
-        classifySelect : goodsListData && goodsListData[0] ? goodsListData[0]['id'] : classifySelect,
+      wx.hideLoading()
     })
   },
 
   /**
    * 添加购物车
-   * @param {*} e 
    */
   addToShopCar(e) {
-    var that = this
-    that.getGoodsClassifies(data => {
-      shopCarUtil.addToShopCar(data, e.target.dataset.goodsid)
-    })
-  },
-
-  /**
-   * 商品分类的点击事件
-   * @param {*} e 
-   */
-  onClickClassify: function (e) {
-    var that = this;
-    var l_id = e.currentTarget.dataset.id;
-    console.log(l_id)
-    that.setData({
-      rigId: l_id,
-      classifySelect: l_id,
-      isClickLeftText: true
-    })
+    shopCarUtil.addToShopCar(e.target.dataset.goodsid, util.showToast)
   },
 
   /**
    * 预览图片
-   * @param {*} e 
    */
   previewImage: function (e) {
     const url = e.target.dataset.url
@@ -110,41 +52,55 @@ Page({
   },
 
   /**
+   * 搜索
+   */
+  onClickSearch() {
+    wx.navigateTo({
+      url: '../../pages/goodsSearch/goodsSearch',
+    })
+  },
+
+  /**
+   * 商品分类的点击事件
+   */
+  onClickClassify: function (e) {
+    var that = this;
+    that.setData({
+      rigId: e.currentTarget.dataset.id
+    })
+  },
+
+  /**
    * 滚动触发
-   * @param {*} e 
    */
   scroll: function (e) {
     var that = this;
-    var scrollTop = e.detail.scrollTop,
-      h = 0,
-      classifySelect;
-    that.data.goodsClassifies.forEach(function (clssfiy, i) {
-      var _h = 26 + that.getItemHeight(clssfiy['id']) * 100;
+    var h = 0,
+      classifySelect,
+      scrollTop = e.detail.scrollTop
+
+    that.data.classifies.forEach(clssfiy => {
+      var _h = that.getItemHeight(clssfiy.id) * 95 + 34;
       if (scrollTop >= h) {
-        classifySelect = clssfiy['id'];
+        classifySelect = clssfiy.id;
       }
       h += _h;
     })
-    if (!that.data.isClickLeftText) {
-      that.setData({
-        classifySelect: classifySelect,
-      })
-    }
     that.setData({
-      isClickLeftText: false
+      goodsList: goodsList,
+      classifySelect: classifySelect,
     })
   },
 
   /**
    * 求每一栏高度
-   * @param {商品分类Id} id 
    */
-  getItemHeight: function (id) {
-    var that = this;
-    var rightData = that.data.goodsListData;
-    for (var i = 0; i < rightData.length; i++) {
-      if (rightData[i]['id'] == id) {
-        return rightData[i]['content'].length;
+  getItemHeight(id) {
+    const that = this;
+    const goodsList = that.data.goodsList
+    for (var i = 0; i < goodsList.length; i++) {
+      if (goodsList[i].id == id) {
+        return goodsList[i].content.length;
       }
     }
   },

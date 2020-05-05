@@ -7,7 +7,7 @@ Page({
     wx.cloud.callFunction({
       name: 'orderInfo',
       data: {
-        action: 'GET',
+        action: 'GET_ALL',
       }
     }).then(res => {
       that.setData({

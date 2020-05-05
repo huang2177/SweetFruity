@@ -2,6 +2,12 @@ function randomInt(length) {
   return parseInt(Math.random() * length);
 }
 
+function randomBgImage() {
+  return [
+    '../image/bg1.jpeg', '../image/bg2.jpeg', '../image/bg3.jpeg', '../image/bg4.jpeg',
+  ][randomInt(4)]
+}
+
 function randomWord() {
   var nums = "";
   var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ];
@@ -56,10 +62,20 @@ function inDeliveryTime(day, time) {
   return true
 }
 
+function showToast() {
+  wx.showToast({
+    title: '添加成功',
+    duration: 2000,
+  })
+}
+
+
 module.exports = {
   randomInt: randomInt,
+  randomBgImage: randomBgImage,
   getDateStr: getDateStr,
   randomWord: randomWord,
+  showToast: showToast,
   getCustomTimes: getCustomTimes,
   inDeliveryTime: inDeliveryTime,
 }

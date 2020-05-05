@@ -46,30 +46,28 @@ function updateRecord(s, data, newdata) {
 function updateGoodsStockNum(goodsId, sum, callBack) {
   var _id = -1
   var content = []
-  db.collection("goodsListData").get({
-    success: function (res) {
-      res.data.forEach(function (goodsData, i) {
-        goodsData.content.forEach(function (goods, j) {
-          if (goodsId == goods['goodsId'] && goods['stockNum'] && goods['stockNum'] > 0) {
-            _id = goodsData._id
-            content = goodsData.content
-            var newdata = goods
-            newdata['stockNum'] = goods['stockNum'] - sum
-            content[j] = newdata
-          }
-        })
+  db.collection("goodsListData").get().then(res => {
+    res.data.forEach(function (goodsData, i) {
+      goodsData.content.forEach(function (goods, j) {
+        if (goodsId == goods['goodsId'] && goods['stockNum'] && goods['stockNum'] > 0) {
+          _id = goodsData._id
+          content = goodsData.content
+          var newdata = goods
+          newdata['stockNum'] = goods['stockNum'] - sum
+          content[j] = newdata
+        }
       })
+    })
 
-      if (_id) {
-        db.collection("goodsListData")
-          .doc(_id)
-          .update({
-            data: {
-              content: content
-            },
-            success: callBack(),
-          });
-      }
+    if (_id) {
+      db.collection("goodsListData")
+        .doc(_id)
+        .update({
+          data: {
+            content: content
+          },
+          success: callBack(),
+        });
     }
   })
 }
@@ -77,29 +75,27 @@ function updateGoodsStockNum(goodsId, sum, callBack) {
 function updateGoodsData(s, newdata) {
   var _id = -1
   var content = []
-  db.collection("goodsListData").get({
-    success: function (res) {
-      res.data.forEach(function (goodsData, i) {
-        goodsData.content.forEach(function (goods, j) {
-          if (newdata['goodsId'] == goods['goodsId']) {
-            content = goodsData.content
-            _id = goodsData._id
-            content[j] = newdata
-          }
-        })
+  db.collection("goodsListData").get().then(res => {
+    res.data.forEach(function (goodsData, i) {
+      goodsData.content.forEach(function (goods, j) {
+        if (newdata['goodsId'] == goods['goodsId']) {
+          content = goodsData.content
+          _id = goodsData._id
+          content[j] = newdata
+        }
       })
+    })
 
-      if (_id) {
-        db.collection("goodsListData")
-          .doc(_id)
-          .update({
-            data: {
-              content: content
-            },
-            success: s.uploadSuccess,
-            fail: s.uploadFail
-          });
-      }
+    if (_id) {
+      db.collection("goodsListData")
+        .doc(_id)
+        .update({
+          data: {
+            content: content
+          },
+          success: s.uploadSuccess,
+          fail: s.uploadFail
+        });
     }
   })
 }

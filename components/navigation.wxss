@@ -1,43 +1,37 @@
 /* components/navigation.wxss */
-.navigation.status-bar {
+.status-bar {
   width: 100%;
+  height: 44px;
   z-index: 99998;
-  margin-top: 0rpx;
+  background: #FFB310;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.navigation.status-bar .goBack {
-  position: absolute;
-  top: 7.5px;
-  font-size: 12pt;
-}
-
-.navigation.status-bar .goBack image {
+.status-bar .leftImg1 {
+  position: fixed;
   width: 22px;
   height: 22px;
-  padding: 6px 20px 0 15px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.navigation.status-bar .tabar {
-  display: flex;
-  justify-content: center;
-  background: #fff;
+.status-bar .leftImg2 {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  padding-left: 12px;
+  padding-right: 10px;
+  padding-top: 4px;
 }
 
-.navigation.status-bar .tabar2 {
-  background: transparent !important;
-}
-
-.navigation.status-bar .tabar2 text {
-  color: #fff !important;
-}
-
-.navigation.status-bar .tabar text {
+.status-bar text {
+  width: 100%;
   height: 44px;
   line-height: 44px;
-  color: #fff;
-  font-size: 17px;
-}
-
-.navigation.status-bar .tabar .active {
-  color: #fff;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
 }

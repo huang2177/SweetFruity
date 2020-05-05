@@ -1,0 +1,56 @@
+<!--pages/goodsSearch/goodsSearch.wxml-->
+
+<!-- status bar -->
+<view class='status-bar' style="padding-top:{{barHeight}}px;">
+	<image src='../image/back.png' bindtap="goBack"></image>
+	<input class="input-search" placeholder="输入商品名称" value="{{inputValue}}" focus="true" confirm-type="search" bindconfirm="bindConfirm" bindfocus="bindFocus" />
+</view>
+
+<image class="emptyHolder" src="../image/emptyData.png" hidden="{{searchData.length != 0 || showHistory}}" />
+
+<!-- hot search -->
+<view class="historySearch" style="margin-top:{{barHeight + 55}}px;" hidden="{{!showHistory}}">
+	<text class="hsText">热门搜索</text>
+	<view class="hsView">
+		<block wx:for="{{hotSearch}}" wx:key="key">
+			<text bindtap="clickSearchItem" data-value="{{item}}">{{item}}</text>
+		</block>
+	</view>
+</view>
+
+<!-- history search -->
+<view class="historySearch" style="margin-top:30px;" hidden="{{!showHistory}}">
+	<text class="hsText">历史搜索</text>
+	<view class="hsView">
+		<block wx:for="{{historySearch}}" wx:key="key">
+			<text bindtap="clickSearchItem" data-value="{{item}}">{{item}}</text>
+		</block>
+	</view>
+</view>
+
+<!-- content -->
+<view style="margin-top:{{barHeight + 55}}px;" hidden="{{showHistory}}">
+	<block wx:for="{{searchData}}" wx:key="key">
+		<view class='listItem'>
+			<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
+			<view class='listText'>
+				<text>{{item.text}}</text>
+				<view class="view">
+					<view>
+						<text class='unitPrice'>¥{{item.unitPrice}}</text>
+						<text class='oldPrice'>¥{{item.oldPrice}}</text>
+					</view>
+					<image src='../image/add.png' bindtap="addToShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill" />
+				</view>
+			</view>
+		</view>
+	</block>
+
+	<view class="placeHolder" />
+</view>
+
+<!-- shopCar -->
+<view class="shopCar" bindtap="navigateToShopCar">
+	<image src="../image/shopCar.png" mode="aspectFill"></image>
+	<text hidden="{{!cartsSum}}">{{cartsSum}}</text>
+</view>
