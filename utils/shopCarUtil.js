@@ -1,27 +1,20 @@
-const app = getApp()
+const goodsManager = require('./goodsManager.js')
+const goodsRecommend = require('./goodsRecommend.js')
 
 // 添加到购物车
-function addToShopCar(data, goodsId, fun) {
+function addToShopCar(goodsId, fun) {
   var item = {}
-  data.forEach(function (goodsData, i) {
-    if (goodsId.indexOf(goodsData['id']) >= 0) {
-      goodsData.content.forEach(function (goods, i) {
-        if (goodsId == goods['goodsId']) {
-          item = goods
-        }
-      })
-    }
+  goodsManager.getAllGoods().then(data => {
+    data.result.forEach(goods => {
+      if (goodsId == goods['goodsId']) {
+        item = goods
+      }
+    })
+    add(item, fun)
   })
-  add(item, fun)
 }
 
 function add(goods, fun) {
-  if (goods.stockNum <= 0) {
-    return
-  }
-  if (!goods.stockNum) {
-    goods.stockNum = 100
-  }
   var index = -1;
   var cartsStorage = wx.getStorageSync('carts')
   var carts = cartsStorage ? cartsStorage : [];
@@ -36,11 +29,11 @@ function add(goods, fun) {
     carts[index].sum++;
   }
 
+  if (fun) fun(carts)
+
   getApp().getCartsSum(carts)
   wx.setStorageSync('carts', carts)
-  if (fun) {
-    fun(carts)
-  }
+  goodsRecommend.updateRecommend(goods.goodsId, 'RECOMMEND_SHOP_CAR')
 }
 
 //判断是否超出库存
@@ -70,10 +63,11 @@ function removeFromShopCar(goodsId, fun) {
     if (!carts[index].sum) {
       carts.splice(index, 1)
     }
-    if (fun) fun(carts)
 
     getApp().getCartsSum(carts)
     wx.setStorageSync('carts', carts)
+
+    if (fun) fun(carts)
   }
 }
 
@@ -111,34 +105,24 @@ function getTotalSum(carts) {
 
 /**
  * 判断商品是否下架
- * @param {*} data 
- * @param {*} fun 
  */
-function hasStock(data, success, error) {
-  var hasStock
-  var goodsName
+function hasStock() {
   const goodsIds = []
   const carts = wx.getStorageSync('carts')
-  data.forEach(function (goodsData, i) {
-    goodsData.content.forEach(function (goods, i) {
-      goodsIds.push(goods['goodsId'])
+  return new Promise((resolve, reject) => {
+    goodsManager.getAllGoods().then(data => {
+      data.result.forEach(goods => {
+        goodsIds.push(goods['goodsId'])
+      })
+      for (let i = 0; i < carts.length; i++) {
+        const cart = carts[i];
+        if (goodsIds.indexOf(cart['goodsId']) < 0) {
+          reject(cart['text'])
+        }
+      }
+      resolve()
     })
   })
-  for (let i = 0; i < carts.length; i++) {
-    const cart = carts[i];
-    if (goodsIds.indexOf(cart['goodsId']) >= 0) {
-      hasStock = true
-    } else {
-      hasStock = false
-      goodsName = cart['text']
-      break
-    }
-  }
-  if (hasStock) {
-    success()
-  } else {
-    error(goodsName)
-  }
 }
 
 module.exports = {

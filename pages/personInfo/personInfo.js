@@ -3,6 +3,8 @@ const db = wx.cloud.database()
 const util = require('../../utils/util.js')
 const userInfo = require('../../utils/userInfo.js')
 
+var isManager = false
+
 Page({
 
   onShareAppMessage: function (options) {
@@ -15,12 +17,9 @@ Page({
 
   onLoad() {
     const that = this
+    that.setBgImage()
+    that.updateItems()
     that.updateBackendInfo()
-
-    that.setData({
-      bgImage: that.getBgImage(),
-      items: that.getItemsData(false),
-    })
   },
 
   onShow: function () {
@@ -35,22 +34,29 @@ Page({
     })
   },
 
+  updateItems() {
+    const that = this
+    that.setData({
+      items: that.getItemsData(isManager),
+    })
+  },
+
+  setBgImage() {
+    this.setData({
+      bgImage: util.randomBgImage()
+    })
+  },
+
   /**
    * 获取管理员电话列表
    */
   updateBackendInfo: function () {
     var that = this
-    db.collection('backendManager').get({
-      success: function (res) {
-        const phone = wx.getStorageSync('phoneNumber')
-        const managerPhones = res.data[0].managerPhones
-        const isManager = managerPhones.indexOf(phone) >= 0
-        if (isManager) {
-          that.setData({
-            items: that.getItemsData(true),
-          })
-        }
-      }
+    db.collection('backendManager').get().then(res => {
+      const phone = wx.getStorageSync('phoneNumber')
+      const managerPhones = res.data[0].managerPhones
+      isManager = managerPhones.indexOf(phone) >= 0
+      if (isManager) that.updateItems()
     })
   },
 
@@ -79,7 +85,6 @@ Page({
 
   /**
    * 检查登录状态
-   * @param {*} index 
    */
   checkLoginStatus(index) {
     var that = this
@@ -98,7 +103,6 @@ Page({
 
   /**
    * 获取用户头像、昵称
-   * @param {*} e 
    */
   getUserInfo(e) {
     const that = this
@@ -112,7 +116,6 @@ Page({
 
   /**
    * 获取用户手机号码
-   * @param {*} e 
    */
   getPhoneNumber(e) {
     const that = this
@@ -122,15 +125,6 @@ Page({
       })
       that.updateBackendInfo()
     })
-  },
-
-  getBgImage() {
-    return [
-      '../image/bg1.jpeg',
-      '../image/bg2.jpeg',
-      '../image/bg3.jpeg',
-      '../image/bg4.jpeg',
-    ][util.randomInt(4)]
   },
 
   getItemsData(isManager) {

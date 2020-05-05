@@ -7,21 +7,18 @@ const dbCollection = db.collection('orderInfo')
 // 云函数入口函数
 exports.main = async (event, context) => {
   const action = event.action
-  const openId = event.openId
-
   switch (action) {
-    case 'PUT':
+    case 'GET_ALL':
+      return await dbCollection
+        .orderBy('isCompleted', 'asc')
+        .orderBy('createTime', 'asc')
+        .get()
 
-      break;
-
-    case 'GET':
-      var query = dbCollection
-      if (openId) {
-        query = dbCollection.where({
-          _openid: openId
+    case 'GET_USER':
+      return await dbCollection
+        .where({
+          _openid: cloud.getWXContext().OPENID
         })
-      }
-      return await query
         .orderBy('isCompleted', 'asc')
         .orderBy('createTime', 'asc')
         .get()

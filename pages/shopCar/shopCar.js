@@ -1,26 +1,26 @@
 // pages/shopCar/shopCar.js
-const db = wx.cloud.database()
+
+const util = require('../../utils/util.js')
 const userInfo = require('../../utils/userInfo.js')
 const shopCarUtil = require('../../utils/shopCarUtil.js')
+const recommend = require('../../utils/goodsRecommend.js')
 
 Page({
 
-  onLoad: function (options) {
-    var that = this
-    wx.onAppHide((res) => {
-      wx.setStorageSync('carts', that.data.carts)
-    })
-    that.getGoodsListData()
-  },
-
   onShow: function () {
     const that = this
+    that.setCarts(wx.getStorageSync('carts'))
+
     that.setData({
       nickName: wx.getStorageSync('nickName'),
       phoneNumber: wx.getStorageSync('phoneNumber'),
     })
 
-    that.setCarts(wx.getStorageSync('carts'))
+    recommend.getRecommendData('RECOMMEND_GOODS').then(res => {
+      that.setData({
+        dayRecommend: res.result
+      })
+    })
   },
 
   setCarts(carts) {
@@ -29,37 +29,22 @@ Page({
       carts: carts ? carts : [],
       totalMoney: (shopCarUtil.getTotalSum(carts).totalMoney).toFixed(2),
     })
-  },
-
-  getGoodsListData(fun) {
-    const that = this
-    db.collection("goodsListData").get().then(res => {
-      if (fun) fun(res.data)
-
-      res.data.forEach(goods => {
-        if ('每日促销' == goods['text']) {
-          that.setData({
-            dayRecommend: goods.content
-          })
-        }
-      })
-    })
+    getApp().getCartsSum(carts)
   },
 
   /**
    * 添加购物车
-   * @param {*} e 
    */
   addToShopCar(e) {
     var that = this
-    that.getGoodsListData(data => {
-      shopCarUtil.addToShopCar(data, e.target.dataset.goodsid, that.setCarts)
+    shopCarUtil.addToShopCar(e.target.dataset.goodsid, carts => {
+      util.showToast()
+      that.setCarts(carts)
     })
   },
 
   /**
    * 移除购物车
-   * @param {*} goodsId 
    */
   removeFromShopCar(e) {
     var that = this
@@ -82,15 +67,12 @@ Page({
    */
   jumpToOrderPage: function () {
     var that = this
-    that.getGoodsListData(data => {
-      shopCarUtil.hasStock(data, function () {
-          wx.navigateTo({
-            url: '../orderDetail/order'
-          })
-        },
-        function (goodsName) {
-          that.showModal('商品【' + goodsName + '】可能已下架，请重新选择!')
-        })
+    shopCarUtil.hasStock().then(() => {
+      wx.navigateTo({
+        url: '../orderDetail/order'
+      })
+    }).catch(res => {
+      that.showModal('商品【' + res + '】可能已下架，请重新选择!')
     })
   },
 
@@ -104,7 +86,11 @@ Page({
   },
 
   getUserInfo(e) {
-    userInfo.getUserInfo(e, this.onShow)
+    userInfo.getUserInfo(e, (nickName, avatarUrl) => {
+      that.setData({
+        nickName: nickName,
+      })
+    })
   },
 
   getPhoneNumber(e) {

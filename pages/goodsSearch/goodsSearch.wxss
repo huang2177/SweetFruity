@@ -1,0 +1,156 @@
+/* pages/goodsSearch/goodsSearch.wxss */
+
+page {
+  background: rgb(233, 232, 232);
+}
+
+.status-bar {
+  width: 100%;
+  z-index: 99998;
+  background: #FFB310;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 44px;
+  position: fixed;
+  top: 0;
+}
+
+.status-bar image {
+  width: 22px;
+  height: 22px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.status-bar input {
+  height: 30px;
+  font-size: 28rpx;
+  border-radius: 90rpx;
+  padding-left: 20rpx;
+  background: #ffffff;
+  margin-left: 20rpx;
+}
+
+/* history search */
+.hsText {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-left: 30rpx;
+  color: rgb(95, 95, 95);
+}
+
+.hsView {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.hsView text {
+  flex: 0 0 auto;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  padding-top: 7rpx;
+  padding-bottom: 7rpx;
+  margin-top: 4%;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  border-radius: 7rpx;
+  background: rgb(219, 217, 217);
+  font-size: 30rpx;
+}
+
+/* content */
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-bottom: 30rpx;
+  border-radius: 15rpx;
+}
+
+.goodsImg {
+  width: 100%;
+  height: 320rpx;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
+}
+
+.listText {
+  display: flex;
+  padding: 20rpx;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.listText .view {
+  width: 100%;
+  display: flex;
+  margin-top: 20rpx;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listText view image {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.listText text {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgb(20, 20, 20);
+}
+
+.listText .oldPrice {
+  text-decoration: line-through;
+  font-size: 34rpx;
+  color: rgba(111, 104, 78, 1);
+  margin-left: 10rpx;
+}
+
+.listText .unitPrice {
+  color: rgb(255, 102, 0);
+  font-size: 34rpx;
+}
+
+.placeHolder {
+  height: 60rpx;
+}
+
+/* shopCar */
+
+.shopCar {
+  position: fixed;
+  width: 100rpx;
+  height: 100rpx;
+  bottom: 30rpx;
+  left: 30rpx;
+  display: flex;
+  border-radius: 90rpx;
+  align-items: center;
+  justify-content: center;
+  background: #FFB310;
+}
+
+.shopCar image {
+  width: 58%;
+  height: 58%;
+}
+
+.shopCar text {
+  position: fixed;
+  color: white;
+  font-size: 26rpx;
+  margin-left: 25rpx;
+  margin-top: -40rpx;
+  font-weight: 600;
+  background: red;
+  border-radius: 90rpx;
+  width: 38rpx;
+  height: 38rpx;
+  text-align: center;
+}

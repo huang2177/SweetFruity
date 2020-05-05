@@ -1,6 +1,4 @@
 <!--pages/bakendHome/backendHome.wxml-->
-<image class="emptyHolder" src="../image/emptyData.png" hidden="{{goodsListData.length != 0}}" />
-
 <block wx:for="{{goodsListData}}" wx:for-item="outItem" wx:key="key">
 	<text class="title">{{outItem.text}}</text>
 	<block wx:for="{{outItem.content}}" wx:key="key">

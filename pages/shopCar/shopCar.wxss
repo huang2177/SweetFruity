@@ -191,8 +191,8 @@ page {
 .child image {
   width: 100%;
   height: 320rpx;
-  border-top-left-radius: 10rpx;
-  border-top-right-radius: 10rpx;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
 }
 
 .goodsName {
@@ -239,7 +239,6 @@ page {
 }
 
 ::-webkit-scrollbar {
-  display: none;
   width: 0px;
   height: 0px;
   color: transparent;

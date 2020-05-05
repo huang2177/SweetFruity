@@ -1,12 +1,9 @@
 <!--components/navigation.wxml-->
-<view style="padding-top:{{content_offset ? bar_Height + 44 : 0}}px;">
-	<view class='navigation status-bar'>
-		<view class='goBack' bindtap='goBack' style="padding-top:{{bar_Height}}px;" hidden='{{!show_bol}}'>
+<view class='status-bar' style="padding-top:{{bar_Height}}px;">
 
-			<image src='../pages/image/search.png'></image>
-		</view>
-		<view class="tabar {{my_class ? 'tabar2':''}}" style="padding-top:{{bar_Height}}px; background-color:{{background_color}}; {{nav.linearGradient(linear_gradient, direction, color_stops)}}">
-			<text style="color:{{title_color}};">{{title}}</text> <!-- 标题 -->
-		</view>
-	</view>
+	<!-- <image class='leftImg1' bindtap='leftImgTap1' src='../pages/image/refresh.png' /> -->
+	<image class='leftImg2' bindtap='leftImgTap' src='../pages/image/search.png' />
+
+
+	<text class="title">{{title}}</text>
 </view>

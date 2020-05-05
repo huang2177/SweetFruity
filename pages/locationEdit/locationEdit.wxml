@@ -1,5 +1,15 @@
 <!--pages/locationEdit/locationEdit.wxml-->
 <view class="content">
-  <input class="inputLocation" value="{{hasDefaultLocation ? placeHolder : ''}}" placeholder="{{!hasDefaultLocation ? placeHolder : ''}}" focus="true" bindinput="onInputContent" />
-  <button class="saveLocation" bindtap="onSaveLocation">保存</button>
-</view>   
+	<view class="cityContent" hidden="true">
+		<button class="city" disabled="true">成都市</button>
+		<text>.</text>
+		<picker mode="selector" bindchange="bindPickerChange" range="{{areas}}">
+			<button class="area">郫都区</button>
+		</picker>
+		<text hidden="{{!detail}}">.</text>
+		<button class="detail" disabled="true" hidden="{{!detail}}">{{detail}}</button>
+	</view>
+
+	<input bindinput="onInputContent" value="{{defaultLocation}}" bindconfirm="bindconfirm" focus="true" />
+
+</view>

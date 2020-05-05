@@ -7,7 +7,7 @@
   width: 100%;
   display: flex;
   position: fixed;
-  top: 130rpx;
+  top: 0rpx;
   left: 0;
   right: 0;
   bottom: 0rpx;
@@ -43,15 +43,10 @@
   height: 100%;
 }
 
-.right scroll-view {
-  white-space: nowrap;
-}
-
 .listItem {
   display: flex;
   flex-direction: row;
-  padding: 25rpx;
-  display:inline-block;
+  padding: 10px;
 }
 
 .stockClear {
@@ -60,16 +55,15 @@
 }
 
 .goodsImg {
-  width: 160rpx;
-  height: 160rpx;
-  min-width: 160rpx;
+  width: 75px;
+  height: 75px;
+  min-width: 75px;
   border-radius: 180rpx;
 }
 
 .itemTitle {
   font-size: 26rpx;
-  padding-top: 30rpx;
-  padding-bottom: 15px;
+  padding: 17px;
   padding-left: 25rpx;
   padding-right: 25rpx;
   color: rgba(66, 54, 30, 1);

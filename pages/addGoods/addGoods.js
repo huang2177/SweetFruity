@@ -1,6 +1,5 @@
 // miniprogram/pages/addGoods/addGoods.js
 const db = wx.cloud.database()
-const util = require('../../utils/util.js')
 const goodsDbUtil = require('../../utils/goodsDBUtil.js')
 
 Page({
@@ -52,6 +51,7 @@ Page({
       imagePath: goods ? goods.url : '',
       goodsName: goods ? goods.text : '',
       goodsId: goods ? goods.goodsId : '',
+      category: goods ? goods.category : '',
       selectedClassify: goods ? goods.classify : '未选择！',
       price: goods ? goods.unitPrice : 0,
       oldPrice: goods ? goods.oldPrice : 0,
@@ -70,9 +70,9 @@ Page({
     var that = this
     const filePath = that.data.imagePath
 
-    if (!filePath || !that.data.stockNum ||
-      !that.data.goodsName || !that.data.price ||
-      !that.data.oldPrice || that.data.selectedClassify == '未选择') {
+    if (!filePath || !that.data.goodsName ||
+      !that.data.price || !that.data.oldPrice ||
+      that.data.selectedClassify == '未选择') {
       wx.showModal({
         title: '提示',
         content: '请填写完整的商品数据！',
@@ -107,6 +107,7 @@ Page({
         text: that.data.goodsName,
         unitPrice: that.data.price,
         oldPrice: that.data.oldPrice,
+        category: that.data.category,
         stockNum: Number(that.data.stockNum),
       }]
     }
@@ -249,4 +250,10 @@ Page({
       stockNum: options.detail.value
     })
   },
+
+  onInputCategory(e) {
+    this.setData({
+      category: e.detail.value
+    })
+  }
 })

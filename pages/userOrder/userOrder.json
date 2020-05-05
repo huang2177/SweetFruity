@@ -1,13 +1,4 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "我的订单",
-  "tabBar": {
-    
-    "list": [{
-      "pagePath": "pagePath",
-      "text": "text",
-      "iconPath": "iconPath",
-      "selectedIconPath": "selectedIconPath"
-    }]
-  }
+  "navigationBarTitleText": "我的订单"
 }
