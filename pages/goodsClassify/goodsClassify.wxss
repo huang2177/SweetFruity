@@ -1,15 +1,12 @@
 /* pages/goodsClassify/goodsClassify.wxss */
 
-.container {
-  margin-left: 35rpx;
-  margin-right: 35rpx;
-}
-
 .inputGroup {
   display: flex;
   flex-direction: row;
   margin-top: 50rpx;
   align-items: baseline;
+  margin-left: 35rpx;
+  margin-right: 35rpx;
 }
 
 input {
@@ -31,14 +28,21 @@ button {
   line-height: 65rpx;
 }
 
-.classifytext {
-  width: 100%;
-  height: 60rpx;
-  color: white;
-  padding: 10rpx;
-  line-height: 60rpx;
-  text-align: center;
-  border-radius: 8rpx;
-  margin-top: 60rpx;
-  background: rgb(70, 70, 70);
+.classifyView {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.classifyView text {
+  flex: 0 0 auto;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  margin-left: 35rpx;
+  margin-right: 35rpx;
+  margin-top: 8%;
+  border-radius: 7rpx;
+  background: rgb(219, 217, 217);
+  font-size: 30rpx;
 }

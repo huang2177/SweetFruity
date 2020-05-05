@@ -23,6 +23,8 @@
 			<image src='../image/arrow.png' mode="aspectFill" />
 		</view>
 	</view>
+	
+	<button class="contact" hidden="{{index != 2}}" open-type="contact" />
 </block>
 
 <view class="share">

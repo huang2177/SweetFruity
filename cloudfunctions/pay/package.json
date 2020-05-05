@@ -11,6 +11,6 @@
   "dependencies": {
     "pako": "^1.0.11",
     "tenpay": "^2.1.18",
-    "wx-server-sdk": "latest"
+    "wx-server-sdk": "^1.8.3"
   }
 }

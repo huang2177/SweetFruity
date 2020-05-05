@@ -108,6 +108,17 @@ page {
   color: rgb(66, 66, 66);
 }
 
+.contact {
+  width: 100%;
+  height: 100rpx;
+  margin-top: -100rpx;
+  background: transparent;
+}
+
+.contact::after {
+  border: none;
+}
+
 /* share */
 .share {
   height: 200rpx;

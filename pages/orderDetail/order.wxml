@@ -10,11 +10,11 @@
 
 				<view class="locationInfo2">
 					<view class="userInfo">
-						<text class="name">{{nickName}}</text>
-						<text class="phone">{{phoneNumber}}</text>
+						<text class="name">{{userInfo.nickName}}</text>
+						<text class="phone">{{userInfo.phoneNumber}}</text>
 					</view>
 
-					<text class="defaultText">{{location}}</text>
+					<text class="defaultText">{{userInfo.location}}</text>
 				</view>
 			</view>
 
@@ -65,6 +65,6 @@
 	<view class="bottomLayout">
 		<text class="totalSum">共{{totalSum}}件， 合计：</text>
 		<text class="totalMoney">¥ {{totalMoney}}</text>
-		<text class="{{isPaySuccess ? 'committedOrder' : 'commitOrder'}}" bindtap="{{isPaySuccess ? '' : 'commitOrder'}}">提交订单</text>
+		<text class="{{isPaySuccess ? 'committedOrder' : 'commitOrder'}}" bindtap="{{isPaySuccess ? '' : 'createOrder'}}">提交订单</text>
 	</view>
 </view>

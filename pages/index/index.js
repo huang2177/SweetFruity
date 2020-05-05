@@ -9,9 +9,7 @@ Page({
   },
 
   onLoad: function () {
-    wx.showLoading({
-      title: '加载中…'
-    })
+    util.showLoading()
     this.getClassifiesAndGoods()
   },
 
@@ -55,9 +53,7 @@ Page({
    * 搜索
    */
   onClickSearch() {
-    wx.navigateTo({
-      url: '../../pages/goodsSearch/goodsSearch',
-    })
+    util.navigateTo('goodsSearch/goodsSearch')
   },
 
   /**
@@ -66,7 +62,8 @@ Page({
   onClickClassify: function (e) {
     var that = this;
     that.setData({
-      rigId: e.currentTarget.dataset.id
+      goodsList: goodsList,
+      rigId: e.target.dataset.id
     })
   },
 

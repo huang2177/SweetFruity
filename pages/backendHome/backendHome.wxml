@@ -1,20 +1,36 @@
 <!--pages/bakendHome/backendHome.wxml-->
-<block wx:for="{{goodsListData}}" wx:for-item="outItem" wx:key="key">
-	<text class="title">{{outItem.text}}</text>
-	<block wx:for="{{outItem.content}}" wx:key="key">
-		<view class="listItem" bindtap="deleteGoods" data-parentid="{{outItem.id}}" data-classify="{{outItem.text}}" data-item="{{item}}">
-			<image src="{{item.url}}" mode="aspectFill" />
-			<text class="goodsName">{{item.text}}</text>
-			<text class="price">{{item.oldPrice +' / '+ item.unitPrice}}</text>
-		</view>
-		<view class="divider" />
-	</block>
-</block>
+<view class="main">
+	<view class='left'>
+		<block wx:for="{{classifies}}" wx:for-list="item" wx:key="key">
+			<text class="{{classifySelect == item.id ? 'active' : 'inactive'}}" data-id='{{item.id}}' bindtap='onClickClassify'>{{item.text}}</text>
+		</block>
+	</view>
 
-<!-- menus -->
-<view class="menu addClassify" bindtap="navigate" data-pageUrl="../goodsClassify/goodsClassify">
-	<text>添加\n分类</text>
-</view>
-<view class="menu addGoods" bindtap="navigate" data-pageUrl="../addGoods/addGoods">
-	<text>添加\n商品</text>
+	<!-- rightContent -->
+	<view class='right'>
+		<block wx:for="{{goodsList}}" wx:for-list="item" wx:key="key">
+
+			<block wx:for="{{item.content}}" wx:key="key">
+				<view class='listItem' bindtap="editGoods" data-parentid="{{item.id}}" data-classify="{{item.text}}" data-item="{{item}}">
+					<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
+
+					<view class='listText'>
+						<text>{{item.text}}</text>
+						<view class="view">
+							<text class='oldPrice'>¥{{item.oldPrice}}</text>
+							<text class='unitPrice'>¥{{item.unitPrice}}</text>
+						</view>
+					</view>
+				</view>
+			</block>
+		</block>
+	</view>
+
+	<!-- menus -->
+	<view class="menu addClassify" bindtap="navigate" data-pageUrl="goodsClassify/goodsClassify">
+		<text>添加\n分类</text>
+	</view>
+	<view class="menu addGoods" bindtap="navigate" data-pageUrl="addGoods/addGoods">
+		<text>添加\n商品</text>
+	</view>
 </view>

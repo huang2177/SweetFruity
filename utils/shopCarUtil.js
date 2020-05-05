@@ -3,14 +3,13 @@ const goodsRecommend = require('./goodsRecommend.js')
 
 // 添加到购物车
 function addToShopCar(goodsId, fun) {
-  var item = {}
   goodsManager.getAllGoods().then(data => {
-    data.result.forEach(goods => {
-      if (goodsId == goods['goodsId']) {
-        item = goods
+    for (var i = 0; i < data.result.length; i++) {
+      if (goodsId == data.result[i]['goodsId']) {
+        add(data.result[i], fun)
+        break
       }
-    })
-    add(item, fun)
+    }
   })
 }
 

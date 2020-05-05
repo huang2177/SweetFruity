@@ -67,19 +67,9 @@ Page({
     const that = this
     const index = e.target.dataset.index
     const pageUrl = e.target.dataset.pageurl
-    switch (index) {
-      case 2:
-        wx.makePhoneCall({
-          phoneNumber: '19938237187',
-        })
-        break;
-      default:
-        if (that.checkLoginStatus(index)) return
 
-        wx.navigateTo({
-          url: pageUrl
-        })
-        break;
+    if (!that.checkLoginStatus(index)) {
+      util.navigateTo(pageUrl)
     }
   },
 
@@ -90,11 +80,7 @@ Page({
     var that = this
     if (index == 0 || index == 1) {
       if ('获取手机号码' == that.data.phoneNumber) {
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: '您还未登录，请登录后重试！',
-        })
+        util.showModal('您还未登录，请登录后重试！')
         return true
       }
     }
@@ -132,14 +118,13 @@ Page({
     const data = [{
         url: '../image/menu_order.png',
         text: '我的订单',
-        value: '',
-        pageUrl: '../userOrder/userOrder'
+        pageUrl: 'userOrder/userOrder'
       },
       {
         url: '../image/menu_location.png',
         text: '收货地址',
         value: location ? location : '未填写!',
-        pageUrl: '../locationEdit/locationEdit'
+        pageUrl: 'locationEdit/locationEdit'
       },
       {
         url: '../image/menu_service.png',
@@ -149,13 +134,13 @@ Page({
         backendMenu: true,
         url: '../image/order.png',
         text: '订单管理',
-        pageUrl: '../loopOrder/loopOrder'
+        pageUrl: 'loopOrder/loopOrder'
       },
       {
         backendMenu: true,
         url: '../image/addGoods.png',
         text: '添加商品',
-        pageUrl: '../backendHome/backendHome'
+        pageUrl: 'backendHome/backendHome'
       }
     ]
     return isManager ? data : data.splice(0, 3)

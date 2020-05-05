@@ -1,28 +1,87 @@
 /* pages/bakendHome/backendHome.wxss */
-.title {
-  margin-left: 35rpx;
-  font-size: 32rpx;
+.main {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(224, 224, 224, 0.5);
+  position: fixed;
+}
+
+.left .active {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-weight: 500;
+  color: rgba(255, 179, 16, 1);
+  background: white;
+}
+
+.left .inactive {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-weight: 500;
+  color: rgba(66, 54, 30, 1);
+}
+
+.right {
+  width: 75%;
+  height: 100%;
+  margin-left: 25%;
 }
 
 .listItem {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 35rpx;
+  padding: 15px;
 }
 
-.listItem image {
-  width: 120rpx;
-  height: 90rpx;
-  border-radius: 8rpx;
+.goodsImg {
+  width: 75px;
+  height: 75px;
+  min-width: 75px;
+  border-radius: 180rpx;
 }
 
-.divider {
+.listText {
   width: 100%;
-  height: 0.2rpx;
-  background: rgb(231, 230, 230);
+  display: flex;
+  margin-left: 30rpx;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.listText .view {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.listText text {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgb(20, 20, 20);
+}
+
+.listText .oldPrice {
+  text-decoration: line-through;
+  font-size: 34rpx;
+  color: rgba(111, 104, 78, 1);
+}
+
+.listText .unitPrice {
+  font-size: 34rpx;
+  margin-left: 10rpx;
+  color: rgb(255, 102, 0);
+}
+
 
 /* menu for backend deploy */
 .menu {

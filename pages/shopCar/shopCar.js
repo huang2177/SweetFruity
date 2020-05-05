@@ -57,7 +57,7 @@ Page({
    */
   clearShopCar() {
     var that = this
-    that.showModal('确定清空购物车吗？', true, function () {
+    util.showModal('确定清空购物车吗？', true, function () {
       shopCarUtil.clearShopCar(that.setCarts)
     })
   },
@@ -66,13 +66,10 @@ Page({
    * 跳转到订单详情
    */
   jumpToOrderPage: function () {
-    var that = this
     shopCarUtil.hasStock().then(() => {
-      wx.navigateTo({
-        url: '../orderDetail/order'
-      })
+      util.navigateTo('orderDetail/order')
     }).catch(res => {
-      that.showModal('商品【' + res + '】可能已下架，请重新选择!')
+      util.showModal('商品【' + res + '】可能已下架，请重新选择!')
     })
   },
 
@@ -86,7 +83,8 @@ Page({
   },
 
   getUserInfo(e) {
-    userInfo.getUserInfo(e, (nickName, avatarUrl) => {
+    var that = this
+    userInfo.getUserInfo(e, (nickName) => {
       that.setData({
         nickName: nickName,
       })
@@ -96,15 +94,4 @@ Page({
   getPhoneNumber(e) {
     userInfo.getPhoneNumber(e, this.jumpToOrderPage)
   },
-
-  showModal(content, showCancel = false, fun = null) {
-    wx.showModal({
-      title: '提示',
-      content: content,
-      showCancel: showCancel,
-      success: function (res) {
-        if (res.confirm && fun) fun()
-      }
-    })
-  }
 })

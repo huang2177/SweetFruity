@@ -1,13 +1,11 @@
 <!--pages/goodsClassify/goodsClassify.wxml-->
+<view class="inputGroup">
+	<input placeholder="商品分类名称：" focus="true" bindinput="onInputContent" />
+	<button bindtap="addClaasify">添加</button>
+</view>
 
-<view class="container">
-  <view class="inputGroup">
-    <input placeholder="商品分类名称：" focus="true" bindinput="onInputContent" />
-    <button bindtap="addClaasify">添加</button>
-  </view>
-
-  <block wx:for="{{goodsClassifies}}" wx:key="key">
-    <text class="classifytext" bindtap="deleteClassify" data-item="{{item}}">{{item.text}}</text>
-  </block>
-
+<view class="classifyView">
+	<block wx:for="{{goodsClassifies}}" wx:key="key">
+		<text  bindtap="deleteClassify" data-item="{{item}}">{{item.text}}</text>
+	</block>
 </view>

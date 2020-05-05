@@ -1,4 +1,5 @@
 // miniprogram/pages/addGoods/addGoods.js
+var goodsListData = []
 const db = wx.cloud.database()
 const goodsDbUtil = require('../../utils/goodsDBUtil.js')
 
@@ -13,7 +14,6 @@ Page({
     showModal: false,
     selectedClassify: '未选择',
     goodsClassifies: [],
-    goodsListData: []
   },
 
   onLoad: function (options) {
@@ -34,9 +34,7 @@ Page({
     })
     db.collection("goodsListData").get({
       success: function (res) {
-        that.setData({
-          goodsListData: res.data
-        })
+        goodsListData = res.data
       }
     })
   },
@@ -92,11 +90,12 @@ Page({
       })
     }
   },
+  
   upload(fileID) {
     var that = this
     const goodsId = that.data.goods ?
       that.data.goods.goodsId :
-      goodsDbUtil.generateGoodsId(that.data.goodsListData, that.data.id)
+      goodsDbUtil.generateGoodsId(goodsListData, that.data.id)
     const data = {
       id: that.data.id,
       text: that.data.selectedClassify,
@@ -115,7 +114,7 @@ Page({
     if (that.data.goods) {
       goodsDbUtil.updateGoodsData(that, data.content[0])
     } else {
-      goodsDbUtil.saveGoodsData(that, that.data.goodsListData, data)
+      goodsDbUtil.saveGoodsData(that, goodsListData, data)
     }
   },
 
@@ -206,7 +205,7 @@ Page({
       showCancel: true,
       success: function (res) {
         if (!res.cancel) {
-          goodsDbUtil.deleteGoods(that, that.data.goodsListData, that.data.goods.goodsId, that.data.goods.parentId)
+          goodsDbUtil.deleteGoods(that, goodsListData, that.data.goods.goodsId, that.data.goods.parentId)
         }
       },
     })

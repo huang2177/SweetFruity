@@ -12,7 +12,7 @@ function randomWord() {
   var nums = "";
   var chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ];
 
-  for (var i = 0; i < 18; i++) {
+  for (var i = 0; i < 32; i++) {
     var id = parseInt(Math.random() * 35);
     nums += chars[id];
   }
@@ -69,13 +69,53 @@ function showToast() {
   })
 }
 
+function showLoading() {
+  wx.showLoading({
+    title: '加载中…'
+  })
+}
+
+function showModal(content, showCancel, callback) {
+  wx.showModal({
+    title: '提示',
+    content: content,
+    showCancel: showCancel,
+    success: function (res) {
+      if (res.confirm && callback) callback()
+    }
+  })
+}
+
+function navigateTo(route) {
+  wx.navigateTo({
+    url: '../../pages/' + route,
+  })
+}
+
+function uploadErrorInfo(db, type, err) {
+  if (!db || err && err.errMsg == 'requestPayment:fail cancel') {
+    return
+  }
+
+  db.collection('errorInfo').add({
+    data: {
+      type: type,
+      error: err
+    }
+  })
+}
+
 
 module.exports = {
   randomInt: randomInt,
-  randomBgImage: randomBgImage,
   getDateStr: getDateStr,
   randomWord: randomWord,
+  showModal: showModal,
   showToast: showToast,
+  navigateTo: navigateTo,
+  showLoading: showLoading,
+  randomBgImage: randomBgImage,
   getCustomTimes: getCustomTimes,
   inDeliveryTime: inDeliveryTime,
+  uploadErrorInfo: uploadErrorInfo
 }

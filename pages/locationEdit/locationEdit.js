@@ -1,30 +1,28 @@
 // pages/locationEdit/locationEdit.js
-var location = ''
+const util = require('../../utils/util.js')
+var location = wx.getStorageSync("location")
 
 Page({
 
-  onLoad: function (options) {
+  onLoad() {
     this.setData({
-      defaultLocation: wx.getStorageSync("location")
+      defaultLocation: location
     })
   },
 
-  onInputContent: function (e) {
+  onInputContent(e) {
     location = e.detail.value
   },
 
-  bindconfirm: function () {
+  bindconfirm() {
     if (!location) {
-      wx.showModal({
-        title: '提示',
-        content: '请填写有效的收货地址！',
-      })
+      util.showModal('请填写有效的收货地址！')
       return
     }
     wx.setStorageSync("location", location)
     var pages = getCurrentPages();
     var prepage = pages[pages.length - 2];
-    prepage.updateItems()
+    if (prepage.updateItems) prepage.updateItems()
 
     wx.navigateBack({
       delta: 1,

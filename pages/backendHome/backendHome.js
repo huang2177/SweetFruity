@@ -1,39 +1,59 @@
 // pages/bakendHome/backendHome.js
-const goodsDbUtil = require('../../utils/goodsDBUtil.js')
-const db = wx.cloud.database()
+var goodsList = []
+const util = require('../../utils/util.js')
+const goodsManager = require('../../utils/goodsManager.js')
 
 Page({
-  data: {
-    goodsListData: []
+
+  onLoad: function () {
+    var that = this
+    that.getClassifiesAndGoods()
   },
 
-  onLoad: function (options) {
+  getClassifiesAndGoods() {
     var that = this
-    db.collection("goodsListData").get({
-      success: function (res) {
-        that.setData({
-          goodsListData: res.data
-        })
-      }
+    goodsManager.getClassifiesAndGoods().then(res => {
+      goodsList = res.result.goodsList
+
+      that.setData({
+        classifySelect: goodsList[0].id,
+        classifies: res.result.classifies,
+        goodsList: that.getGoodsListByClassify(goodsList[0].id),
+      })
     })
   },
 
-  deleteGoods: function (e) {
+  /**
+   * 商品分类的点击事件
+   */
+  onClickClassify: function (e) {
+    var that = this;
+    const id = e.target.dataset.id
+    that.setData({
+      classifySelect: id,
+      goodsList: that.getGoodsListByClassify(id),
+    })
+  },
+
+  getGoodsListByClassify(id) {
+    const data = []
+    goodsList.forEach(element => {
+      if (element.id == id) data.push(element)
+    });
+
+    return data
+  },
+
+  editGoods(e) {
     const data = e.currentTarget.dataset
     const item = data.item
     item.classify = data.classify
-    item.parentId  = data.parentid
+    item.parentId = data.parentid
     wx.setStorageSync('goods', item)
-    wx.navigateTo({
-      url: '../addGoods/addGoods',
-    })
+    util.navigateTo('addGoods/addGoods')
   },
 
   navigate: function (e) {
-    const pageUrl = e.currentTarget.dataset.pageurl
-    wx.navigateTo({
-      url: pageUrl
-    })
+    util.navigateTo(e.currentTarget.dataset.pageurl)
   },
-
 })

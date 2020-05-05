@@ -41,6 +41,11 @@
 .right {
   width: 75%;
   height: 100%;
+  -webkit-overflow-scrolling: touch
+}
+
+.right scroll-view {
+  -webkit-overflow-scrolling: touch
 }
 
 .listItem {
