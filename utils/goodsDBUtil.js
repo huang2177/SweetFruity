@@ -148,6 +148,49 @@ function removeWholeContent(s, id) {
     });
 }
 
+function saveGroupData(s, newdata) {
+  db.collection("groupData").add({
+    data: newdata,
+    success: s.uploadSuccess,
+    fail: s.uploadFail
+  });
+}
+
+function updateGroupData(s, newdata) {
+  var _id = -1
+  db.collection("groupData").get().then(res => {
+    res.data.forEach(function (group) {
+      if (newdata.id == group.id) {
+        console.log(group._id)
+        _id = group._id
+      }
+    })
+
+    if (_id) {
+      db.collection("groupData").doc(_id)
+        .update({
+          data: newdata,
+          success: s.uploadSuccess,
+          fail: function (res) {
+            console.log(res)
+          }
+        });
+    }
+  })
+}
+
+function deleteGroup( _id) {
+  return db.collection("groupData").doc(_id).remove();
+}
+
+function generateGroupId(data) {
+  var id = 1001
+  data.forEach(group => {
+    if (('g-' + id) == group.id) id++
+  })
+  return 'g-' + id
+}
+
 function generateClassifyId(data) {
   var parentId = 1001
   data.forEach(function (claasify, i) {
@@ -175,10 +218,14 @@ function generateGoodsId(data, parentId) {
 }
 
 module.exports = {
+  deleteGroup: deleteGroup,
   deleteGoods: deleteGoods,
+  saveGroupData: saveGroupData,
   saveGoodsData: saveGoodsData,
+  updateGroupData: updateGroupData,
   updateGoodsData: updateGoodsData,
   updateGoodsStockNum: updateGoodsStockNum,
+  generateGroupId: generateGroupId,
   generateGoodsId: generateGoodsId,
   generateClassifyId: generateClassifyId,
 }

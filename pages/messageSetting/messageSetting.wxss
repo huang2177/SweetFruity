@@ -1,0 +1,15 @@
+/* pages/messageSetting/messageSetting.wxss */
+page {
+  margin: 3%;
+}
+
+text {
+  width: 94%;
+  font-size: 34rpx;
+}
+
+image {
+  width: 94%;
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+}

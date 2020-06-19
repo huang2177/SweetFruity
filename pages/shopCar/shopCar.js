@@ -1,11 +1,15 @@
 // pages/shopCar/shopCar.js
 
 const util = require('../../utils/util.js')
-const userInfo = require('../../utils/userInfo.js')
 const shopCarUtil = require('../../utils/shopCarUtil.js')
 const recommend = require('../../utils/goodsRecommend.js')
 
+const msgUtil = require('../../utils/messageUtil.js')
 Page({
+
+  onTabItemTap() {
+    //msgUtil.requestSendMsg()
+  },
 
   onShow: function () {
     const that = this
@@ -25,9 +29,11 @@ Page({
 
   setCarts(carts) {
     const that = this
+    const money = shopCarUtil.getTotalSum(carts).totalMoney
     that.setData({
+      enableCommit: money < 10,
       carts: carts ? carts : [],
-      totalMoney: (shopCarUtil.getTotalSum(carts).totalMoney).toFixed(2),
+      totalMoney: money.toFixed(2),
     })
     getApp().getCartsSum(carts)
   },
@@ -66,6 +72,13 @@ Page({
    * 跳转到订单详情
    */
   jumpToOrderPage: function () {
+    var that = this
+    if (!util.isLogin()) {
+      util.showModal('您还未登录，请登录【昵称、手机号码】后重试！', true, () => {
+        that.navigate(null, '../personInfo/personInfo')
+      })
+      return
+    }
     shopCarUtil.hasStock().then(() => {
       util.navigateTo('orderDetail/order')
     }).catch(res => {
@@ -76,22 +89,9 @@ Page({
   /**
    * 跳转到首页
    */
-  navigateToHome() {
+  navigate(e, url = '../index/index') {
     wx.switchTab({
-      url: '../index/index',
+      url: url,
     })
-  },
-
-  getUserInfo(e) {
-    var that = this
-    userInfo.getUserInfo(e, (nickName) => {
-      that.setData({
-        nickName: nickName,
-      })
-    })
-  },
-
-  getPhoneNumber(e) {
-    userInfo.getPhoneNumber(e, this.jumpToOrderPage)
   },
 })

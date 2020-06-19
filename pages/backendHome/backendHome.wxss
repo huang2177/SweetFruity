@@ -82,6 +82,9 @@
   color: rgb(255, 102, 0);
 }
 
+.hasMember {
+  margin-left: 10rpx;
+}
 
 /* menu for backend deploy */
 .menu {
@@ -100,6 +103,10 @@
 .menu text {
   color: white;
   font-size: 26rpx;
+}
+
+.addGroup {
+  bottom: 270rpx;
 }
 
 .addGoods {

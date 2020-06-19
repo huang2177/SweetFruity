@@ -1,0 +1,9 @@
+<!--pages/messageSetting/messageSetting.wxml-->
+<text>1、点击右上角【...】</text>
+<image src="../image/setting1.png" mode="widthFix"/>
+
+<text>2、点击设置按钮【设置】，进入设置页面</text>
+<image src="../image/setting2.png" mode="widthFix"/>
+
+<text>3、点击【订阅消息】，勾选接收通知即可</text>
+<image src="../image/setting3.png" mode="widthFix"/>

@@ -1,6 +1,6 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-cloud.init()
+cloud.init({env:'release-ca90l'})
 const db = cloud.database()
 
 // 云函数入口函数
@@ -13,6 +13,8 @@ exports.main = async (event, context) => {
       return searchGoods(event)
     case 'GET_CLSSIFY_AND_GOODS':
       return getClassifiesAndGoods()
+    case 'GROUPS':
+      return getGroupData()
     default:
       break;
   }
@@ -68,4 +70,8 @@ async function getClassifiesAndGoods() {
     goodsList,
     classifies
   }
+}
+
+async function getGroupData() {
+  return await db.collection("groupData").get()
 }

@@ -20,10 +20,7 @@ Page({
     that.setBgImage()
     that.updateItems()
     that.updateBackendInfo()
-  },
 
-  onShow: function () {
-    const that = this
     const nickName = wx.getStorageSync('nickName')
     const avatarUrl = wx.getStorageSync('avatarUrl')
     const phoneNumber = wx.getStorageSync('phoneNumber')
@@ -127,6 +124,11 @@ Page({
         pageUrl: 'locationEdit/locationEdit'
       },
       {
+        url: '../image/menu_msg_setting.png',
+        text: '消息设置',
+        pageUrl: 'messageSetting/messageSetting'
+      },
+      {
         url: '../image/menu_service.png',
         text: '联系我们',
       },
@@ -139,11 +141,11 @@ Page({
       {
         backendMenu: true,
         url: '../image/addGoods.png',
-        text: '添加商品',
+        text: '商品管理',
         pageUrl: 'backendHome/backendHome'
-      }
+      },
     ]
-    return isManager ? data : data.splice(0, 3)
+    return isManager ? data : data.splice(0, 4)
   },
 
   hidePhoneCenterNumberIfNotNull(phone) {

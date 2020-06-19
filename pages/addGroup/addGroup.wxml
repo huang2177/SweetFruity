@@ -1,0 +1,27 @@
+<!--pages/addGroup/addGroup.wxml-->
+<view class="container">
+	<input placeholder='商品描述:' focus="true" bindinput="onInputDesc" value="{{group.text}}" />
+
+	<input placeholder='商品原价:' bindinput="onInputOldPrice" type="digit" value="{{group.oldPrice}}" />
+
+	<input placeholder='商品单价:' bindinput="onInputPrice" type="digit" value="{{group.unitPrice}}" />
+
+	<input placeholder='成团人数:' bindinput="onInputMember" value="{{group.member}}" type="digit" />
+
+	<input placeholder='已有人数:' type="digit" bindinput="onInputHasMember" value="{{group.hasMember}}" />
+
+	<picker mode="multiSelector" bindchange="bindMultiPickerChange" range="{{multiArray}}">
+		<view class="child">
+			<button>结束时间</button>
+			<text class="timeText">{{closeTime}}</text>
+		</view>
+	</picker>
+
+	<view class="child">
+		<button bindtap="chooseImage">添加商品图片</button>
+		<image src="{{imagePath}}" bindtap="preView" hidden="{{!imagePath}}" mode="aspectFill" />
+	</view>
+
+	<button class="save" bindtap="save">{{group ? '更新' : '开团'}}</button>
+	<button class="delete" bindtap="close" hidden="{{!group}}">结束</button>
+</view>

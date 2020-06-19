@@ -1,0 +1,125 @@
+/* pages/groupShop/groupShop.wxss */
+
+page {
+  background: rgb(243, 243, 243);
+}
+
+/* content */
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  margin-left: 4.7%;
+  margin-right: 4.7%;
+  margin-top: 30rpx;
+  border-radius: 15rpx;
+}
+
+.goodsImg {
+  width: 100%;
+  height: 320rpx;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
+}
+
+.member {
+  color: white;
+  width: fit-content;
+  font-size: 30rpx;
+  font-weight: 600;
+  background: #FFB310;
+  border-top-left-radius: 15rpx;
+  border-bottom-right-radius: 15rpx;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
+  margin-top: -320rpx;
+}
+
+.listText {
+  display: flex;
+  padding: 20rpx;
+  margin-top: 280rpx;
+  flex-direction: column;
+}
+
+.listText .view1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.listText .view2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.listText .view2 view {
+  margin-top: 10rpx;
+}
+
+.holder {
+  font-size: 34rpx;
+  color: gray;
+}
+
+.hasMember {
+  font-size: 34rpx;
+  color: rgb(255, 102, 0);
+  font-weight: 600;
+}
+
+.endTime {
+  margin-top: 15rpx;
+  font-size: 34rpx;
+  color: gray;
+}
+
+.listText .title {
+  font-size: 34rpx;
+  color: gray;
+}
+
+.oldPrice {
+  font-size: 34rpx;
+  color: gray;
+  text-decoration: line-through;
+}
+
+.unitPrice {
+  color: rgb(255, 102, 0);
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.joinGroup {
+  color: white;
+  font-size: 30rpx;
+  font-weight: 800;
+  width: 150rpx;
+  text-align: center;
+  background: #FFB310;
+  border-radius: 45rpx;
+  padding-top: 8rpx;
+  padding-bottom: 9rpx;
+}
+
+.groupClosed {
+  width: 150rpx;
+  text-align: center;
+  color: white;
+  font-size: 30rpx;
+  font-weight: 800;
+  background: gray;
+  border-radius: 45rpx;
+  padding-top: 8rpx;
+  padding-bottom: 9rpx;
+}
+
+.placeHolder {
+  height: 60rpx;
+}

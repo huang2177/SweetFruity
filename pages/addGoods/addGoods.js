@@ -1,6 +1,7 @@
 // miniprogram/pages/addGoods/addGoods.js
 var goodsListData = []
 const db = wx.cloud.database()
+const util = require('../../utils/util.js')
 const goodsDbUtil = require('../../utils/goodsDBUtil.js')
 
 Page({
@@ -24,18 +25,14 @@ Page({
 
   getData: function (fun) {
     var that = this
-    db.collection("goodsClassifies").get({
-      success: function (res) {
-        if (fun) fun(res.data)
-        that.setData({
-          goodsClassifies: res.data
-        })
-      }
+    db.collection("goodsClassifies").get().then(res => {
+      if (fun) fun(res.data)
+      that.setData({
+        goodsClassifies: res.data
+      })
     })
-    db.collection("goodsListData").get({
-      success: function (res) {
-        goodsListData = res.data
-      }
+    db.collection("goodsListData").get().then(res => {
+      goodsListData = res.data
     })
   },
 
@@ -71,10 +68,7 @@ Page({
     if (!filePath || !that.data.goodsName ||
       !that.data.price || !that.data.oldPrice ||
       that.data.selectedClassify == '未选择') {
-      wx.showModal({
-        title: '提示',
-        content: '请填写完整的商品数据！',
-      })
+      util.showModal('请填写完整的商品数据！')
       return
     }
 
@@ -90,7 +84,7 @@ Page({
       })
     }
   },
-  
+
   upload(fileID) {
     var that = this
     const goodsId = that.data.goods ?
@@ -119,19 +113,10 @@ Page({
   },
 
   uploadSuccess: function (res) {
-    var that = this
-    wx.showModal({
-      title: '添加成功',
-      content: '是否继续添加？',
-      success: function (res) {
-        if (res.cancel) {
-          wx.navigateBack({
-            delta: 1,
-          })
-        } else {
-          that.onLoad()
-        }
-      }
+    util.showModal('添加成功!', false, () => {
+      wx.navigateBack({
+        delta: 1,
+      })
     })
   },
 
@@ -169,16 +154,10 @@ Page({
   showModal: function () {
     this.getData(classifies => {
       if (!classifies || classifies.length == 0) {
-        wx.showModal({
-          title: '提示',
-          content: '还未添加商品分类，是否添加？',
-          success: function (res) {
-            if (!res.cancel) {
-              wx.navigateTo({
-                url: '../goodsClassify/goodsClassify'
-              })
-            }
-          }
+        util.showModal('还未添加商品分类，是否添加？', true, () => {
+          wx.navigateTo({
+            url: '../goodsClassify/goodsClassify'
+          })
         })
         return
       }
@@ -199,15 +178,8 @@ Page({
 
   delete: function () {
     var that = this
-    wx.showModal({
-      title: '提示',
-      content: '确定删除该商品信息？',
-      showCancel: true,
-      success: function (res) {
-        if (!res.cancel) {
-          goodsDbUtil.deleteGoods(that, goodsListData, that.data.goods.goodsId, that.data.goods.parentId)
-        }
-      },
+    util.showModal('确定删除该商品信息？', true, () => {
+      goodsDbUtil.deleteGoods(that, goodsListData, that.data.goods.goodsId, that.data.goods.parentId)
     })
   },
 
@@ -222,7 +194,7 @@ Page({
 
   deleteFail: function (res) {
     wx.showToast({
-      image: '../image/error.png',
+      image: '../../pages/image/error.png',
       title: '删除失败',
       duration: 3000
     })

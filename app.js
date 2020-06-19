@@ -21,7 +21,7 @@ App({
   getCartsSum: function (carts) {
     const cartsSum = shopCarUtil.getCartsSum(carts)
     const data = {
-      index: 1,
+      index: 2,
       text: String(cartsSum),
     }
     if (cartsSum) {

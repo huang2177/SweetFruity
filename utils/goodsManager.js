@@ -28,9 +28,19 @@ function getClassifiesAndGoods() {
   })
 }
 
+function getGroupData() {
+  return wx.cloud.callFunction({
+    name: 'goodsManager',
+    data: {
+      action: 'GROUPS'
+    }
+  })
+}
+
 
 module.exports = {
   getAllGoods: getAllGoods,
   searchGoods: searchGoods,
+  getGroupData: getGroupData,
   getClassifiesAndGoods: getClassifiesAndGoods
 }

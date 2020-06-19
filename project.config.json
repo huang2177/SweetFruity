@@ -23,7 +23,7 @@
 	},
 	"appid": "wx18f037768b93d004",
 	"projectname": "SweetFruity",
-	"libVersion": "2.8.1",
+	"libVersion": "2.11.0",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

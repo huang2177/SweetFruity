@@ -10,6 +10,9 @@
 		<button class="detail" disabled="true" hidden="{{!detail}}">{{detail}}</button>
 	</view>
 
-	<input bindinput="onInputContent" value="{{defaultLocation}}" bindconfirm="bindconfirm" focus="true" />
+	<view class="location">
+		<input bindinput="onInputContent" value="{{defaultLocation}}" bindconfirm="bindconfirm" focus="true" />
+		<button class="save" bindtap="bindconfirm">保存</button>
+	</view>
 
 </view>

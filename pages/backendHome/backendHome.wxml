@@ -8,10 +8,10 @@
 
 	<!-- rightContent -->
 	<view class='right'>
-		<block wx:for="{{goodsList}}" wx:for-list="item" wx:key="key">
+		<block wx:for="{{goodsList}}" wx:for-item="outItem" wx:key="key">
 
-			<block wx:for="{{item.content}}" wx:key="key">
-				<view class='listItem' bindtap="editGoods" data-parentid="{{item.id}}" data-classify="{{item.text}}" data-item="{{item}}">
+			<block wx:for="{{outItem.content}}" wx:key="key">
+				<view class='listItem' bindtap="editGoods" data-parentid="{{outItem.id}}" data-classify="{{outItem.text}}" data-item="{{item}}">
 					<image class='goodsImg' src='{{item.url}}' mode="aspectFill"></image>
 
 					<view class='listText'>
@@ -20,6 +20,11 @@
 							<text class='oldPrice'>¥{{item.oldPrice}}</text>
 							<text class='unitPrice'>¥{{item.unitPrice}}</text>
 						</view>
+						<view class="view" >
+							<text class='member' hidden="{{!item.member}}">成团人数:{{item.member}} </text>
+							<text class='hasMember' hidden="{{!item.member}}"> 已有人数:{{item.hasMember}}</text>
+						</view>
+						<text class='member' hidden="{{!item.closeTime}}">结束时间:{{item.closeTime}} </text>
 					</view>
 				</view>
 			</block>
@@ -27,10 +32,15 @@
 	</view>
 
 	<!-- menus -->
-	<view class="menu addClassify" bindtap="navigate" data-pageUrl="goodsClassify/goodsClassify">
-		<text>添加\n分类</text>
+	<view class="menu addGroup" bindtap="navigate" data-pageUrl="addGroup/addGroup">
+		<text>开团</text>
 	</view>
+
 	<view class="menu addGoods" bindtap="navigate" data-pageUrl="addGoods/addGoods">
 		<text>添加\n商品</text>
+	</view>
+
+	<view class="menu addClassify" bindtap="navigate" data-pageUrl="goodsClassify/goodsClassify">
+		<text>添加\n分类</text>
 	</view>
 </view>

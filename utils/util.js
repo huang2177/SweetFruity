@@ -75,13 +75,14 @@ function showLoading() {
   })
 }
 
-function showModal(content, showCancel, callback) {
+function showModal(content, showCancel, confirm, cancel) {
   wx.showModal({
     title: '提示',
     content: content,
     showCancel: showCancel,
     success: function (res) {
-      if (res.confirm && callback) callback()
+      if (res.confirm && confirm) confirm()
+      if (res.cancel && cancel) cancel()
     }
   })
 }
@@ -105,8 +106,12 @@ function uploadErrorInfo(db, type, err) {
   })
 }
 
+function isLogin() {
+  return wx.getStorageSync('nickName') && wx.getStorageSync('phoneNumber')
+}
 
 module.exports = {
+  isLogin: isLogin,
   randomInt: randomInt,
   getDateStr: getDateStr,
   randomWord: randomWord,

@@ -1,0 +1,33 @@
+<!--pages/groupShop/groupShop.wxml-->
+<image class="emptyHolder" src="../image/emptyData.png" hidden="{{groupData.length !=0 }}" />
+
+<!-- content -->
+<view style="margin-top:{{barHeight + 55}}px;" hidden="{{showHistory}}">
+	<block wx:for="{{groupData}}" wx:key="key">
+		<view class='listItem'>
+			<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill" />
+			<text class="member">{{item.member}}人团</text>
+
+			<view class='listText'>
+				<text class="title">[ {{item.text}} ]</text>
+				<view class="view1">
+					<view class="view2">
+						<view>
+							<text class="holder">[ </text>
+							<text class='unitPrice'>¥{{item.unitPrice}}</text>
+							<text class="holder"> / </text>
+							<text class='oldPrice'>¥{{item.oldPrice}}</text>
+							<text class="holder"> / </text>
+							<text class='hasMember'>{{item.hasMember}}</text>
+							<text class="holder">人参团 ]</text>
+						</view>
+						<text class='endTime'>[ 截止时间：{{item.closeTime}} ]</text>
+					</view>
+					<text class="joinGroup" bindtap="joinGroup" data-id="{{item.id}}">立即参加</text>
+				</view>
+			</view>
+		</view>
+	</block>
+
+	<view class="placeHolder" />
+</view>

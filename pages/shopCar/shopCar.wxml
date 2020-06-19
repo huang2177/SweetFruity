@@ -3,7 +3,7 @@
 	<image src="../image/emptyData.png" />
 	<view class="prompt">
 		<text>购物车里面都没有，赶紧</text>
-		<text class="navToBuy" bindtap="navigateToHome">去选购</text>
+		<text class="navToBuy" bindtap="navigate">去选购</text>
 		<text>吧</text>
 	</view>
 </view>
@@ -55,6 +55,7 @@
 <view class="commitOrder" hidden="{{carts.length == 0}}">
 	<text>应付合计：</text>
 	<text class="money">¥{{totalMoney}}</text>
-	<button wx:if='{{!nickName}}' open-type="getUserInfo" bindgetuserinfo="getUserInfo">去结算</button>
-	<button wx:if='{{nickName}}' open-type="{{!phoneNumber ? 'getPhoneNumber' : ''}}" bindgetphonenumber="getPhoneNumber" bindtap="{{phoneNumber ? 'jumpToOrderPage' : ''}}">去结算</button>
+	<text class="notify" hidden="{{!enableCommit}}">满10.00免费配送</text>
+
+	<button bindtap="jumpToOrderPage" disabled="{{enableCommit}}">去结算</button>
 </view>

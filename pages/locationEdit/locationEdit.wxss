@@ -41,17 +41,31 @@
   padding-right: 10rpx;
 }
 
-input {
-  height: 70rpx;
-  padding: 10rpx;
-  margin-top: 30rpx;
-  border: 0.5px solid rgb(197, 197, 197);
+.location {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.saveLocation {
-  margin-top: 100rpx;
-  background: rgba(255, 193, 7, 255);
+input {
+  height: 60rpx;
+  padding: 10rpx;
+  width: 73%;
+  border-bottom: 0.5px solid rgb(197, 197, 197);
+}
+
+.save {
+  width: 20%;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: rgb(255, 193, 7);
   border-radius: 45rpx;
   color: white;
-  font-size: 36rpx;
+  margin-left: 0rpx;
+  margin-right: 0rpx;
+  font-size: 30rpx;
+}
+.save::after {
+  border: none;
 }

@@ -1,39 +1,38 @@
 <!--index.wxml-->
 <navigation bindleftImgTap='onClickSearch' />
 
-<view class='main' style="top:{{barHeight}}px;">
+<view class='main' style="top:{{barHeight}}px">
+
 	<!-- leftClassify -->
 	<view class='left'>
-		<block wx:for="{{classifies}}" wx:for-list="item" wx:key="key">
-			<text class="{{classifySelect == item.id ? 'active' : 'inactive'}}" data-id='{{item.id}}' bindtap='onClickClassify'>{{item.text}}</text>
+		<block wx:for="{{classifies}}" wx:key="key">
+			<text class="{{classifySelect == item.id ? 'active' : ''}}" data-id='{{item.id}}' bindtap='onClickClassify'>{{item.text}}</text>
 		</block>
 	</view>
 
 	<!-- rightContent -->
-	<view class='right'>
-		<scroll-view scroll-y="true" style="height : 100%;" bindscroll="scroll" scroll-into-view="{{'inToview'+rigId}}">
-			<block wx:for="{{goodsList}}" wx:for-list="item" wx:key="key">
+	<scroll-view scroll-y="true" bindscroll="scroll" scroll-into-view="{{'inToview'+rigId}}">
+		<block wx:for="{{goodsList}}" wx:key="key">
 
-				<view class='itemTitle' id="{{'inToview'+item.id}}">{{item.text}}</view>
+			<view class='itemTitle' id="{{'inToview'+item.id}}">{{item.text}}</view>
 
-				<block wx:for="{{item.content}}" wx:key="key">
-					<view class='listItem {{item.stockNum == 0 ? "stockClear" : ""}}'>
-						<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
+			<block wx:for="{{item.content}}" wx:key="key">
+				<view class='listItem'>
+					<image class='goodsImg' src='{{item.url}}' bindtap="previewImage" data-url="{{item.url}}" mode="aspectFill"></image>
 
-						<view class='listText'>
-							<text>{{item.text}}</text>
-							<text class='oldPrice'>¥{{item.oldPrice}}</text>
-							<view class="view">
-								<text class='unitPrice'>¥{{item.unitPrice}}</text>
-								<text class='stockNum' hidden="{{item.stockNum == null || item.stockNum > 5}}">库存：{{item.stockNum}}</text>
-								<image src='{{item.stockNum!=0 ? "../image/add.png" : "../image/not_add.png"}}' bindtap="addToShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill" />
-							</view>
+					<view class='listText'>
+						<text>{{item.text}}</text>
+						<text class='oldPrice'>¥{{item.oldPrice}}</text>
+						<view class="view">
+							<text class='unitPrice'>¥{{item.unitPrice}}</text>
+							<text class='stockNum' hidden="{{item.stockNum == null || item.stockNum > 5}}">库存：{{item.stockNum}}</text>
+							<image src='{{item.stockNum!=0 ? "../image/add.png" : "../image/not_add.png"}}' bindtap="addToShopCar" data-goodsid="{{item.goodsId}}" mode="aspectFill" />
 						</view>
 					</view>
-				</block>
-
+				</view>
 			</block>
-		</scroll-view>
-	</view>
+
+		</block>
+	</scroll-view>
 
 </view>

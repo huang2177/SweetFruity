@@ -1,0 +1,76 @@
+<!--pages/groupDetail/groupDetail.wxml-->
+<view class="content">
+
+	<scroll-view scroll-y="true" style="height:90%">
+
+		<!-- locationInfo -->
+		<view class="location cardContent" bindtap="updateLocation">
+			<view class="locationInfo">
+				<image class="imgLocation" src="../image/location.png" />
+
+				<view class="locationInfo2">
+					<view class="userInfo">
+						<text class="name">{{userInfo.nickName}}</text>
+						<text class="phone">{{userInfo.phoneNumber}}</text>
+					</view>
+
+					<text class="defaultText">{{userInfo.location}}</text>
+				</view>
+			</view>
+
+			<image class="locationArrow" src="../image/arrow.png" />
+		</view>
+
+		<!-- orderDetail -->
+		<view class="orderDetail cardContent">
+			<view class="storeInfo">
+				<image class='storeImg' src='../image/logo.jpeg' mode="aspectFill"></image>
+				<text class="storeName">果味缘（中海国际店）</text>
+			</view>
+
+
+			<view class='listText'>
+				<image class='goodsImg' src='{{group.url}}' mode="aspectFill"></image>
+				<text class="goodsTitle">{{group.text}}</text>
+				<text class="goodsSum">x1</text>
+				<text class='goodsUnitPrice'>¥{{group.unitPrice}}</text>
+			</view>
+		</view>
+
+		<view class="cardContent">
+			<view class="delivery">
+				<text class="defaultText">购买方式</text>
+				<text class="timeText">拼团购买</text>
+			</view>
+
+			<picker mode="selector" bindchange="bindPickerChange" range="{{deliveryWays}}">
+				<view class="delivery">
+					<text class="defaultText">配送方式</text>
+					<text class="timeText">{{deliveryWay}} ></text>
+				</view>
+			</picker>
+
+			<view class="delivery">
+				<text class="defaultText">配送时间</text>
+				<text class="timeText">{{group.closeTime}}</text>
+			</view>
+
+			<view class="comment">
+				<text class="defaultText">备注留言</text>
+				<input class="timeText" placeholder="可备注洗切服务、无接触收货" bindinput="onCommentInput" />
+			</view>
+		</view>
+
+		<view class="tips">
+			<text>注意：若您选择【商家配送】，商家默认会在拼团成功后，为您进行配送，若有特殊需求，请留言备注！！！</text>
+		</view>
+
+	</scroll-view>
+
+	<!-- bottomLayout -->
+	<view class="bottomLayout">
+		<text class="totalSum">共{{totalSum}}件， 合计：</text>
+		<text class="totalMoney">¥ {{totalMoney}}</text>
+		<text class="{{isPaySuccess ? 'committedOrder' : 'commitOrder'}}" bindtap="{{isPaySuccess ? '' : 'createOrder'}}">提交订单</text>
+	</view>
+</view>

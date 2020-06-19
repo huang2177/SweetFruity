@@ -113,6 +113,10 @@ page {
   color: rgb(255, 102, 0);
   font-weight: 600;
 }
+.commitOrder .notify{
+  font-size: 28rpx;
+  margin-left: 20rpx;
+}
 
 .commitOrder button {
   border-radius: 90rpx;
@@ -125,6 +129,10 @@ page {
   color: white;
   font-size: 30rpx;
   font-weight: 600;
+}
+
+.commitOrder button::after {
+  border: none;
 }
 
 /* empty dispaly */

@@ -12,7 +12,7 @@
 </view>
 
 <block wx:for="{{items}}" wx:key="key">
-	<view class="item {{item.backendMenu ? 'itemBackend' : ''}} {{index == 3 ? 'itemBackend1' : ''}}" bindtap="onItemClick" data-pageUrl="{{item.pageUrl}}" data-index="{{index}}">
+	<view class="item {{item.backendMenu ? 'itemBackend' : ''}} {{index == 4 ? 'itemBackend1' : ''}}" bindtap="onItemClick" data-pageUrl="{{item.pageUrl}}" data-index="{{index}}">
 		<view class="view1">
 			<image src='{{item.url}}' mode="aspectFill" />
 			<text data-pageUrl="{{item.pageUrl}}" data-index="{{index}}">{{item.text}}</text>
@@ -24,7 +24,7 @@
 		</view>
 	</view>
 	
-	<button class="contact" hidden="{{index != 2}}" open-type="contact" />
+	<button class="contact" hidden="{{index != 3}}" open-type="contact" />
 </block>
 
 <view class="share">

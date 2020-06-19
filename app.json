@@ -10,7 +10,11 @@
     "pages/shopCar/shopCar",
     "pages/personInfo/personInfo",
     "pages/userOrder/userOrder",
-    "pages/goodsSearch/goodsSearch"
+    "pages/goodsSearch/goodsSearch",
+    "pages/groupShop/groupShop",
+    "pages/messageSetting/messageSetting",
+    "pages/addGroup/addGroup",
+    "pages/groupDetail/groupDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,6 +31,12 @@
         "text": "首页",
         "iconPath": "./pages/image/nav_home.png",
         "selectedIconPath": "./pages/image/nav_home1.png"
+      },
+      {
+        "pagePath": "pages/groupShop/groupShop",
+        "text": "拼团",
+        "iconPath": "./pages/image/nav_group_shop.png",
+        "selectedIconPath": "./pages/image/nav_group_shop1.png"
       },
       {
         "pagePath": "pages/shopCar/shopCar",

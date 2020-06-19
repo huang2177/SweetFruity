@@ -1,5 +1,6 @@
 //index.js
 var goodsList
+var isFitRefresh
 const util = require('../../utils/util.js')
 const shopCarUtil = require('../../utils/shopCarUtil.js')
 const goodsManager = require('../../utils/goodsManager.js')
@@ -8,10 +9,12 @@ Page({
     barHeight: getApp().globalData.statusBarHeight + 44
   },
 
-  onLoad: function () {
+  onLoad() {
     util.showLoading()
     this.getClassifiesAndGoods()
   },
+
+  onShareAppMessage() {},
 
   /**
    * 获取商品数据
@@ -77,7 +80,7 @@ Page({
       scrollTop = e.detail.scrollTop
 
     that.data.classifies.forEach(clssfiy => {
-      var _h = that.getItemHeight(clssfiy.id) * 95 + 34;
+      const _h = that.getItemHeight(clssfiy.id) * 95 + 34;
       if (scrollTop >= h) {
         classifySelect = clssfiy.id;
       }
@@ -87,6 +90,8 @@ Page({
       goodsList: goodsList,
       classifySelect: classifySelect,
     })
+
+    that.handleRefresh(scrollTop)
   },
 
   /**
@@ -101,4 +106,15 @@ Page({
       }
     }
   },
+
+  handleRefresh(scrollTop) {
+    if (scrollTop <= -60) {
+      isFitRefresh = true
+    }
+    if (scrollTop == 0 && isFitRefresh) {
+      util.showLoading()
+      this.getClassifiesAndGoods()
+      isFitRefresh = false
+    }
+  }
 })

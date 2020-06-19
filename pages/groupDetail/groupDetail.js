@@ -1,35 +1,37 @@
 var orderId = ''
 var comments = ''
-var index = [0, 0]
 const db = wx.cloud.database()
 const util = require('../../utils/util.js')
-const msgUtil = require('../../utils/messageUtil.js')
 const shopCarUtil = require('../../utils/shopCarUtil.js')
+const goodsManager = require('../../utils/goodsManager.js')
 const goodsRecommend = require('../../utils/goodsRecommend.js')
 Page({
   data: {
     deliveryWay: '未选择',
-    deliveryTime: '未选择',
     deliveryWays: ['商家配送', '到店自取'],
-    multiArray: [
-      ['今天', '明天'], util.getCustomTimes(),
-    ],
   },
 
-  onLoad: function () {
+  onLoad: function (e) {
     const that = this
-    const carts = wx.getStorageSync('carts')
-    const totalMoney = (shopCarUtil.getTotalSum(carts).totalMoney).toFixed(2)
-
     that.setData({
-      goodsList: carts,
-      totalMoney: totalMoney,
-      totalSum: shopCarUtil.getTotalSum(carts).totalSum,
+      totalSum: 1,
       userInfo: {
         nickName: wx.getStorageSync('nickName'),
         avatarUrl: wx.getStorageSync('avatarUrl'),
         phoneNumber: wx.getStorageSync('phoneNumber'),
       }
+    })
+    goodsManager.getGroupData().then(res => {
+      res.result.data.forEach(group => {
+        if (e.id == group.id) that.setPageData(group)
+      })
+    })
+  },
+
+  setPageData(group) {
+    this.setData({
+      group: group,
+      totalMoney: Number(group.unitPrice).toFixed(2),
     })
   },
 
@@ -65,7 +67,6 @@ Page({
     }).then(res => {
       wx.hideLoading()
       that.requestPay(res.result)
-     // msgUtil.sendPurchaseMsg(that.data.goodsList, that.data.totalMoney)
     }).catch(error => {
       console.log(error)
       wx.hideLoading()
@@ -102,30 +103,23 @@ Page({
    * 上传订单信息
    */
   uploadOrderInfo: function () {
-    var deliveryTime
-    try {
-      var that = this
-      const array = that.data.multiArray
-      deliveryTime = util.getDateStr(index[0]) + ' ' + array[1][index[1]]
-    } catch (error) {
-      util.uploadErrorInfo(db, 'uploadOrderInfo', error)
-    }
+    var that = this
     db.collection('orderInfo').add({
       data: {
+        isGroup: true, // 拼团购买
         orderId: orderId,
         isCompleted: false,
         comments: comments,
-        deliveryTime: deliveryTime,
-        orders: that.data.goodsList,
+        orders: [that.data.group],
         userInfo: that.data.userInfo,
         totalMoney: that.data.totalMoney,
         deliveryWay: that.data.deliveryWay,
+        deliveryTime: that.data.group.closeTime,
         createTime: new Date().toLocaleString(),
       }
     }).catch(err => {
       util.uploadErrorInfo(db, 'uploadOrderInfo', err)
     })
-    // msgUtil.sendPurchaseMsg(that.data.goodsList, totalMoney)
   },
 
   /**
@@ -148,20 +142,6 @@ Page({
     })
   },
 
-  bindMultiPickerChange(e) {
-    var that = this
-    index = e.detail.value
-    const day = that.data.multiArray[0][index[0]]
-    const time = that.data.multiArray[1][index[1]]
-    if (!util.inDeliveryTime(day, time)) {
-      util.showModal('所选时间不在配送时间范围内，请重新选择！')
-      return
-    }
-    that.setData({
-      deliveryTime: '预计 ' + day + time + ' 送达',
-    })
-  },
-
   onCommentInput(e) {
     comments = e.detail.value
   },
@@ -171,8 +151,7 @@ Page({
   },
 
   isValidOrderInfo() {
-    return this.data.deliveryTime != '未选择' &&
-      (this.data.deliveryWay == '到店自取' ||
-        this.data.deliveryWay == '商家配送' && this.data.userInfo.location != '未填写收货地址！')
+    return (this.data.deliveryWay == '到店自取' ||
+      this.data.deliveryWay == '商家配送' && this.data.userInfo.location != '未填写收货地址！')
   },
 })
